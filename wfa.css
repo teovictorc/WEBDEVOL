@@ -1,0 +1,340 @@
+.tabela{
+	background: #F0F5FA;
+	border: 1px solid #C2CFDF;
+	margin: 0;
+}
+
+.tabela td{
+	color: #222;
+}
+
+.tabela span{
+	background: transparent;
+	color: #072A66;
+	font-style: italic;
+	font-weight: normal;
+}
+
+
+
+.tabela input.button{
+	background: transparent;
+	border: 0;
+	color: #072A66;
+	vertical-align: middle;
+}
+
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.topo_listagem {
+	font-family: tahoma;
+	font-size: 11px;
+	color: #ffffff;
+	font-weight: bold;
+	
+}
+
+.listagem td{
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+	}
+
+.topo_listagem td{
+	color: #ffffff;
+	background-color:#ff9900;
+	}
+
+.style2 {
+	font-family: tahoma;
+	font-size: 11px;
+}
+
+.style1 {
+	font-family: tahoma;
+	font-size: 11px;
+	color: #000000;
+	font-style: normal;
+}
+
+.titulo{
+	font-family: tahoma;
+	font-size: 12px;
+	color: #993300;
+	font-weight : bold;
+}
+
+.campo_texto {
+	background: #FFF;
+	border: 1px solid #999;
+	color: #072A66;
+	font-size: 11px;
+	padding: 3px;
+	vertical-align: middle;
+	width: auto;
+	font-family: tahoma;
+	line-height: 10px;
+	font-style: normal;
+}
+.listagem_azul td{
+	background: #0873D5;
+	color: white;
+	font-family: tahoma;
+	font-size: 11px;
+	}
+	
+.campo_amarelo {
+	background: #FFFFCC;
+	border: 1px solid #999;
+	color: #000000;
+	font-size: 11px;
+	padding: 3px;
+	vertical-align: middle;
+	font-family: tahoma;
+	line-height: 10px;
+	text-transform: uppercase;
+	font-style: normal;
+}
+.texto_obrigatorio {
+	font-family: tahoma;
+	font-size: 11px;
+	color: #FF9900;
+}
+.campo_texto_email {
+	background: #FFF;
+	border: 1px solid #999;
+	color: #072A66;
+	font-size: 11px;
+	padding: 3px;
+	vertical-align: top;
+	width: auto;
+	font-family: tahoma;
+	line-height: 10px;
+	text-transform: lowercase;
+}
+.listagem_cinza {
+
+	background: #CCCCCC;
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+}
+.listagem_procedente {
+	background: #FF0000;
+	color: #FFFFFF;
+	font-family: tahoma;
+	font-size: 11px;
+	border: 1px solid #333333;
+}
+.listagem_improcedente {
+	background: #66FF99;
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+	border: 1px solid #333333;
+}
+.listagem_naoavaliado {
+	background: #FFFFFF;
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+	border: 1px solid #333333;
+}
+.listagem_autorgerada {
+	color: #0000CC;
+	font-family: tahoma;
+	font-size: 11px;
+	border: 1px solid #333333;
+}
+.listagem_autorenviada {
+
+	color: #339933;
+	font-family: tahoma;
+	font-size: 11px;
+	border: 1px solid #333333;
+}
+.listagem_autornaogerada {
+
+	color: #FF0000;
+	font-family: tahoma;
+	font-size: 11px;
+	border: 1px solid #333333;
+}
+.listagem_procedenteFonte {
+	color: #FF0000 ;
+	font-family: tahoma;
+	font-size: 11px;
+	border: 1px solid #333333;
+}
+.listagem_improcedenteFonte {
+	color: #339933;
+	font-family: tahoma;
+	font-size: 11px;
+	border: 1px solid #333333;
+}
+.TextNormal_12 {
+
+	font-family: tahoma;
+	font-size: 12px;
+	color: #000000;
+	font-style: normal;
+}
+.TextNormal_12Negrito {
+	font-family: tahoma;
+	font-size: 12px;
+	color: #000000;
+	font-style: normal;
+	font-weight: bold;
+}
+.imp_normal {
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+}
+.imp_normal_top_rig_lef {
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: none;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+}
+.imp_normal_bot {
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+}
+.imp_normal_total {
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+}
+.imp_normal_top {
+
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+}
+.link {
+
+	font-family: tahoma;
+	font-size: 11px;
+	color: #0000CC;
+	font-style: normal;
+}
+.imp_normal_total_fundoamarelo {
+	color: #333333;
+	font-family: tahoma;
+	font-size: 11px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+	background-color: #FFFFCC;
+}
+.style2_pequeno {
+
+	font-family: tahoma;
+	font-size: 9px;
+}
+.campo_texto_centralizado {
+
+	background: #FFF center;
+	border: 1px solid #999;
+	color: #072A66;
+	font-size: 11px;
+	padding: 3px;
+	vertical-align: middle;
+	width: auto;
+	font-family: tahoma;
+	line-height: 10px;
+	font-style: normal;
+}
+.imp_normal_totalpequeno {
+
+	color: #333333;
+	font-family: tahoma;
+	font-size: 9px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #000000;
+	border-right-color: #000000;
+	border-bottom-color: #000000;
+	border-left-color: #000000;
+}
+.campo_texto_valor {
+	background: #FFF right;
+	border: 1px solid #999;
+	color: #072A66;
+	font-size: 11px;
+	padding: 3px;
+	vertical-align: middle;
+	width: auto;
+	font-family: tahoma;
+	line-height: 10px;
+	font-style: normal;
+}

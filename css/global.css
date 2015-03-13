@@ -1,0 +1,77 @@
+@charset "iso-8859-1";
+
+/* CSS Document */
+
+* { margin:0;  padding:0}
+body	{  font-family: "Arial", Trebuchet MS, Tahoma; font-size:11px; color:#666; }
+.clear	{ clear:both;}
+
+a		{ color:#333; text-decoration:none; font-family: "Arial", Trebuchet MS, Tahoma; font-size:11px;}
+a:hover	{ color:#333; text-decoration:underline; font-family: "Arial", Trebuchet MS, Tahoma; font-size:11px;}
+.email 		{ color:#999; text-decoration:none; font-family: "Arial", Trebuchet MS, Tahoma; font-size:11px;}
+.email:hover	{ color:#999; text-decoration:underline; font-family: "Arial", Trebuchet MS, Tahoma; font-size:11px;}
+.menu 		{ color:#FFF; text-decoration:none; font-family: "Arial", Trebuchet MS, Tahoma; font-size:11px; font-weight:bold;}
+.menu:hover	{ color:#DFDFDF; text-decoration:underline; font-family: "Arial", Trebuchet MS, Tahoma; font-size:11px; font-weight:bold;}
+claro		{ color:#999; text-decoration: none}
+claro:hover	{ color:#999; text-decoration: underline}
+
+h1 {font-family: "Trebuchet MS", Arial, Tahoma; padding-left:15px; font-size:18px; color:#FFF; font-weight:bold;}
+h2 {font-family: "Arial", Trebuchet MS, Tahoma;  font-size:13px; color:#FFF; font-weight:bold;}
+h3 {font-family: "Arial", Trebuchet MS, Tahoma;  font-size:11px; color:#333; font-weight:bold;}
+h4 {font-family: "Arial", Trebuchet MS, Tahoma;  font-size:16px; color:#333; font-weight:bold;}
+
+.tab_titulo { border-bottom: 4px solid #F0F0F0; }
+
+.tab_conteudo {  padding-top:15px; padding-left:15px;}
+
+.bg_topo {
+	background-image: url(../img/bgs/topo.jpg);
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+.bg_cinza {
+	background-image: url(../img/bgs/degrade_topo.jpg);
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+.bg_cinza02 {
+	background-image: url(../img/bgs/degrade_topo02.jpg);
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+.bg_login {
+	background-image: url(../img/bgs/login.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+#tabmenu {margin-left:15px; margin-top:17px;}
+
+.tit_form { border-bottom: 1px solid #CCC; padding-top:15px; }
+
+.senha {padding-left:23px;}
+.btn_entrar {padding-right:22px;}
+.rodape {padding-top:20px; padding-bottom:20px; padding-left:10px; font-family: "Arial", Trebuchet MS, Tahoma;  font-size:11px; color:#FFF; }
+
+.tab_cadastro { background-color: #F0F0F0; height:28px; margin-top:8px; }
+.tab_cadastro td	{ padding-left:6px;}
+
+.tab_inclusao { margin-top:8px; }
+.tab_inclusao td	{ padding-left:1px;}
+
+.tab_usuarios { background-color: #E3E3E3; height:25px;  border-left:1px solid #FFFFFF; margin-top:5px; }
+.tab_usuarios td {padding-left:2px; border-left:1px solid #FFFFFF;}
+
+.tab_usuarios_info { background-color: #F0F0F0; margin-top:1px;  }
+.tab_usuarios_info td {padding-left:3px; border-bottom:1px solid #FFFFFF; height:25px; }
+
+#login		{ margin-top:50px; margin-bottom:100px;}
+
+
+/* FORMULARIO */
+
+.form	{ background-color:#F7F7f7; border: 1px solid #999; border-top: 1px solid #CCC; border-left:1px solid #999; height:17px; margin-bottom:5px; font-family:"Tahoma", Arial, Trebuchet MS; font-size:10px; color:#333;}
+.txt	{ background-color:#F7F7f7; border: 1px solid #999; border-top: 1px solid #CCC; border-left:1px solid #999; margin-bottom:5px; font-family:"Tahoma", Arial, Trebuchet MS; font-size:10px; color:#333;}
+.restrito	{ background-color:#FFFFFF; border: 1px solid #666; border-top: 1px solid #999; border-left:1px solid #CCC; width:180px; margin-top:15px; font-family:"Arial", Trebuchet MS, Tahoma; font-size:10px; color:#666;}
+.busca	{ background-color:#FFFFFF; border: 1px solid #666; border-top: 1px solid #999; border-left:1px solid #CCC; width:180px; font-family:"Arial", Trebuchet MS, Tahoma; font-size:10px; color:#666;}
+
