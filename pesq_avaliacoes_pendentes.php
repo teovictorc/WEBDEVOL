@@ -127,7 +127,9 @@ function situacao($value) {
     <table width="100%"  border="0" class="tab_inclusao">
       <tr>
         <td width="18%" class=""><div align="left"><strong>Per&iacute;odo de pesquisa: </strong></div></td>
-        <td width="29%" class=""><div id="dateFilter"></div></td>
+        <td width="29%" class=""><strong>de <input name="DT_INICIAL" type="text" class="form" onKeyPress="return JSUtilApenasNumero(event);" onKeyUp="JSUtilMascara(this,event,'__/__/____');" value="<?=$_GET['DT_INICIAL']?>" size="9" maxlength="10"> a 
+        <input name="DT_FINAL" type="text" class="form" onKeyPress="return JSUtilApenasNumero(event);" onKeyUp="JSUtilMascara(this,event,'__/__/____');" value="<?=$_GET['DT_FINAL']?>" size="9" maxlength="10">
+        </strong></td>
         <td width="26%" valign="middle" class="">
             <?php if ($Categoria != "1"){ ?>
             <strong>Categoria:</strong>
@@ -159,16 +161,16 @@ function situacao($value) {
       <td colspan="5"> <div align="center">
        <table width="100%" cellpadding="0" cellspacing="0" class="display" id="tableAvaliacoesPendentes">
           <thead>
-            <tr class="tab_usuarios" >
-              <td align="center"></div></td>
-              <td align="center">Categoria</div></td>
-              <td align="center">N&ordm; RAR</div></td>
-              <td align="center">N&ordm; An&aacute;lise</div></td>
-              <td align="center">Data Abertura</div></td>
-              <td align="center">Data Avalia&ccedil;&atilde;o</div></td>
-              <td align="center">Qtde Produtos </div></td>
-              <td align="center">Status</div></td>
-              <td align="left">Cliente</div></td>
+            <tr>
+              <td align="center"></td>
+              <td align="center">Categoria</td>
+              <td align="center">N&ordm; RAR</td>
+              <td align="center">N&ordm; An&aacute;lise</td>
+              <td align="center">Data Abertura</td>
+              <td align="center">Data Avalia&ccedil;&atilde;o</td>
+              <td align="center">Qtde Produtos </td>
+              <td align="center">Status</td>
+              <td align="left">Cliente</td>
               <td>Fabricante</td>
             </tr>
           </thead>
@@ -208,14 +210,14 @@ function situacao($value) {
         $TotalPares = $TotalPares + (int)$row["ITEM_QTDE"];		
      ?>
       <tr>
-          <td align="center"><a onClick="abrir_janela_popup('email_avaliacoes_realizadas.php?Referencia=<?=$row["LANCA_NUMRAR"]?>','prenota','width=400,height=400,top=0,left=0, scrollbars=no,status=no,resizable=no,dependent=yes')" href="#"><img src="imagens/email.gif" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="20" height="20" border="0"></a></div></td>
+          <td align="center"><a onClick="abrir_janela_popup('email_avaliacoes_realizadas.php?Referencia=<?=$row["LANCA_NUMRAR"]?>','prenota','width=400,height=400,top=0,left=0, scrollbars=no,status=no,resizable=no,dependent=yes')" href="#"><img src="imagens/email.gif" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="20" height="20" border="0"></a></td>
           <td align="left"><?=$row["DESCRICAO"]?></td>
           <td align="center"><?=$row["LANCA_NUMRAR"]?></td>
           <td align="center"><?=$row["LANCA_NBLOCO_ANALISE"]?></td>
           <td align="center"><?=trim($row["DATA"])?></td>
           <td align="center"><?=$row["DATA_AVALIACAO"] ?></td>
           <td align="center"><?=$row["ITEM_QTDE"]?></td>
-          <td align="center"><img src="imagens/<?=((trim(situacao($row["AVALI_SITUACAO"]))) ? "" .strtolower(situacao($row["AVALI_SITUACAO"])) : "naoavaliado")?>.gif" width="15" height="15"></div></td>
+          <td align="center"><img src="imagens/<?=((trim(situacao($row["AVALI_SITUACAO"]))) ? "" .strtolower(situacao($row["AVALI_SITUACAO"])) : "naoavaliado")?>.gif" width="15" height="15"></td>
           <td align="left"><?=$row["PESSOA"]?> - <?=$row["NOME"]?></td>
           <td align="center"><?=$row["FABRICA"]?></td>
       </tr>
@@ -231,9 +233,9 @@ function situacao($value) {
 
             <tr>
 
-              <td width="20%"><div align="center"> </div></td>
+              <td width="20%"><div align="center"> </td>
 
-              <td width="20%"><div align="right"></div></td>
+              <td width="20%"><div align="right"></td>
 
               <td width="60%"><div align="center" class="tab_conteudo">
 
@@ -253,7 +255,7 @@ function situacao($value) {
 
                     <div align="right"></div>
 
-                </div></td>
+                </td>
 
             </tr>
 
@@ -265,23 +267,23 @@ function situacao($value) {
 
               <td width="10%" class=""><strong>Legenda:</strong></td>
 
-              <td class=""><div align="center"><img src="imagens/procedente.gif" width="13" height="14"></div></td>
+              <td class=""><div align="center"><img src="imagens/procedente.gif" width="13" height="14"></td>
 
               <td class=""><strong>Avalia&ccedil;&otilde;es procedentes </strong></td>
 
-              <td width="" class=""><div align="center"><img src="imagens/improcedente.gif" width="15" height="15"></div></td>
+              <td width="" class=""><div align="center"><img src="imagens/improcedente.gif" width="15" height="15"></td>
 
               <td class=""><strong>Avalia&ccedil;&otilde;es improcedentes </strong></td>
 
-              <td width="" class=""><div align="center"><img src="imagens/emanalise.gif" width="13" height="14"></div></td>
+              <td width="" class=""><div align="center"><img src="imagens/emanalise.gif" width="13" height="14"></td>
 
               <td class=""><strong>Avalia&ccedil;&otilde;es em an&aacute;lise </strong></td>
 			  
-			  <td width="" class=""><div align="center"><img src="imagens/conserto.gif" width="13" height="14"></div></td>
+			  <td width="" class=""><div align="center"><img src="imagens/conserto.gif" width="13" height="14"></td>
 
               <td class=""><strong>Avalia&ccedil;&otilde;es em conserto </strong></td>
 
-              <td align="center"><img src="imagens/fabrica.gif" width="16" height="16"></div></td>
+              <td align="center"><img src="imagens/fabrica.gif" width="16" height="16"></td>
               <td><strong>Avaliado fabricante </strong></td>
             </tr>
 
@@ -300,7 +302,7 @@ function situacao($value) {
 
           <br>
 
-          </div></td>
+          </td>
 
         </tr>
 
@@ -411,7 +413,7 @@ jQuery(document).ready(function($){
           x = a.split("/");
           r = +new Date(+x[2], +x[1] - 1, +x[0]);
         }
-        console.log("[PRECALC] " + a + " becomes " + r);
+        //console.log("[PRECALC] " + a + " becomes " + r);
         return r;
       },
       "customdatesort-asc": function(a, b) {
