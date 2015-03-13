@@ -448,15 +448,7 @@ jQuery(document).ready(function($){
         stateSave: true,
         "aoColumnDefs": [{  
             "sType": "customdatesort" , "aTargets": [4, 5]}]
-    }).columnFilter({
-        aoColumns:[
-            { sSelector: "#renderingEngineFilter", type:"select"  },
-            { sSelector: "#browserFilter" },
-            { sSelector: "#platformsFilter" },
-            { sSelector: "#dateFilter", type:"date-range" },
-            { sSelector: "#cssGradeFilter", type:"select", values : ["A", "B", "C"] }
-        ]}
-    );
+    });
 });
 function FilterSearch() {
 
