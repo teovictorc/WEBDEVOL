@@ -127,8 +127,8 @@ function situacao($value) {
     <table width="100%"  border="0" class="tab_inclusao">
       <tr>
         <td width="18%" class=""><div align="left"><strong>Per&iacute;odo de pesquisa: </strong></div></td>
-        <td width="29%" class=""><strong>de <input name="DT_INICIAL" type="text" class="form" onKeyPress="return JSUtilApenasNumero(event);" onKeyUp="JSUtilMascara(this,event,'__/__/____');" value="<?=$_GET['DT_INICIAL']?>" size="9" maxlength="10" id="dateFilterInicial"> a 
-        <input name="DT_FINAL" type="text" class="form" onKeyPress="return JSUtilApenasNumero(event);" onKeyUp="JSUtilMascara(this,event,'__/__/____');" value="<?=$_GET['DT_FINAL']?>" size="9" maxlength="10" id="dateFilterFinal">
+        <td width="29%" class=""><strong>de <input name="DT_INICIAL" type="text" class="form" data-inputmask="'mask': '99/99/9999'" value="<?=$_GET['DT_INICIAL']?>" size="9" maxlength="10" id="dateFilterInicial"> a 
+        <input name="DT_FINAL" type="text" class="form" value="<?=$_GET['DT_FINAL']?>" size="9" maxlength="10" id="dateFilterFinal">
         </strong></td>
         <td width="26%" valign="middle" class="">
             <?php if ($Categoria != "1"){ ?>
@@ -419,6 +419,7 @@ function situacao($value) {
 
 </script>
 <script type="text/javascript" src="menu/menu_data.php"></script>
+<script src="js/jquery.maskedinput.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 jQuery(document).ready(function($){
     jQuery.extend(jQuery.fn.dataTableExt.oSort, {
@@ -488,6 +489,8 @@ jQuery(document).ready(function($){
     $('#statusFilter').on( 'change', function () {
       table.columns( 8 ).search( this.value ).draw();
     });
+    $("#dateFilterInicial").mask("99/99/9999");
+    $("#dateFilterFinal").mask("99/99/9999");
 });
 function FilterSearch() {
 

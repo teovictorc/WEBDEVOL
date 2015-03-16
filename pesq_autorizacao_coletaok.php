@@ -1,4 +1,5 @@
 <? 
+	// var_dump($_POST);die;
 	ob_start();
 	set_time_limit(0);  //indeterminado o tempo do script da página
 	
@@ -116,7 +117,7 @@
 											 " AND L.lanca_numrar = I.item_numrar ".
 											 " and nofi.num_nf          = I.item_nf ".
 											 " and nofi.pessoa_emitente = I.item_pessoa_emitente ".
-											 " and nofi.serie_nf        in ('U','UN','UNI','1') ".
+											 // " and nofi.serie_nf        in ('U','UN','UNI','1') ".
 											 " and itnf.cd_item_material = I.ITEM_REFERENCIA ".
 											 " AND L.LANCA_NUMRAR IN(" .$Ids. ") ";
 											 if ($Tipo == "M"){
@@ -124,7 +125,6 @@
 											}else{	
 												$Sql.= " AND L.LANCA_NUMRAR LIKE '" .substr($Rar,0,5). "%' ";
 											}
-											 $Sql.= " AND LANCA_CATEGORIA IN (".$_POST['Categoria'].") ";
 							$Sql.= " union ";
 							$Sql.= "select distinct ".
 							          " L.lanca_numrar ".
@@ -185,7 +185,7 @@
 											 " AND L.lanca_numrar = I.item_numrar ".
 											 " and nofi.num_nf          = I.item_nf ".
 											 " and nofi.pessoa_emitente = I.item_pessoa_emitente ".
-											 " and nofi.serie_nf        in ('U','UN','UNI','1') ".
+											 // " and nofi.serie_nf        in ('U','UN','UNI','1') ".
 											 " and itnf.cd_item_material = I.ITEM_REFERENCIA ".
 											 " AND L.LANCA_NUMRAR IN(" .$Ids. ") ";
 											if ($Tipo == "M"){
@@ -193,7 +193,7 @@
 											}else{	
 												$Sql.= " AND L.LANCA_NUMRAR LIKE '" .substr($Rar,0,5). "%' ";
 											}
-											 $Sql.= " AND LANCA_CATEGORIA IN (".$_POST['Categoria'].") ";
+											 // $Sql.= " AND LANCA_CATEGORIA IN (".$_POST['Categoria'].") ";
 									  $Sql.= " ) as dados ".
 			          " GROUP BY CODIGO_EMITENTE, NOME_EMITENTE, LOGRADOURO, CGCCPF, INSC_ESTADUAL ".
 					  ",BAIRRO ".
@@ -217,16 +217,16 @@
 					  ",PESSOA_EMITENTE ".
 					  ",PESSOA_DESTINATARIO ";
 			$Sql.= " ORDER BY CODIGO_EMITENTE ";
-			//die($Sql);
 			$Stmt = mysql_query($Sql);
 			$NF = "";
 			$rollBack = false;
 			$IdA = newIDO();
 			$Sql = "INSERT INTO rar_autorizacao VALUES (" .$IdA. ",NOW())";
+			// die($Sql);
 			$StmtTemp = mysql_query($Sql);
 			$LOOP = 0;
 			$NumRows = 0;
-			while($Rs = mysql_fetch_assoc($Stmt)) {
+			while($Rs = mysql_fetch_array($Stmt)) {
 				if ($NF != $Rs["CODIGO_EMITENTE"] || $LOOP >= $NumRows) {
 					$StmtRow = mysql_query("SELECT CLIEN_COL_PESSOA,CLIEN_QTDELINHANF FROM rar_cliente_coleta WHERE CLIEN_COL_PESSOA = '" .$Rs["PESSOA_DESTINATARIO"]. "'");
 					if ($RsR = mysql_fetch_assoc($StmtRow))
@@ -414,7 +414,10 @@
 			}
 		</script>
 <?	}else{ ?>
-		<? header("Location: pesq_autorizacao_coleta.php?Erro=0&Categoria=" .$_POST['Categoria']);
+		<script language="javascript" type="text/javascript">
+			document.location.href = "pesq_autorizacao_coleta.php?Erro=0&Categoria=<?=$_POST['Categoria']?>" ;
+		</script>
+<?
 	}
 ?>
 

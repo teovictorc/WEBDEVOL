@@ -106,49 +106,40 @@ function MM_swapImage() { //v3.0
 
 <? 
 
-	$Sql = "SELECT I.ITEM_QTDE, A.AVALI_SITUACAO, date_format(A.AVALI_AREZ_DATA,'%d/%m/%Y') DATAA, L.LANCA_NUMRAR, ".
-
-	       " date_format(L.lanca_dataabertura,'%d/%m/%Y') AS DATA,F.NOME As FABRICA,P.PESSOA,P.NOME ".
-
-		   " FROM pessoa P, rar_lancamento L, pessoa F, rar_avaliacao A, rar_usuarioxcliente, rar_item I".
-
-		   " WHERE L.LANCA_FABRI_IDO = F.PESSOA ".
-
-		   "       AND L.lanca_pessoa = P.PESSOA ".
-
-		   "       AND A.avali_numrar = L.lanca_numrar ".
-
-		   "       AND L.lanca_numrar = I.item_numrar ".
-
-		   "       AND AVALI_SITUACAO = 'P'".
-
-		   //"       AND AVALI_numrar not in (select lanca_numrar from rar_prenf_item)".
-
-		   "       AND AVALI_AUTOR_NUMAUT IS NULL ".
-
-		   "       AND LANCA_PRENFI_IDO IS NULL ".
-
-		   "       and L.lanca_status <> 'I'".
-
-		   "       /*and lanca_categoria in (".$_GET["Categoria"].")*/".
-
-		   "       AND USUCLI_PESSOA = L.LANCA_PESSOA ".
-
-		   "       AND USUCLI_USUAR_IDO = '" .$_SESSION['sId']. "'";
+	$Sql = " SELECT item.ITEM_QTDE,
+	  avaliacao.AVALI_SITUACAO,
+	  date_format(avaliacao.AVALI_AREZ_DATA,'%d/%m/%Y') AS DATAA,
+	  lancamento.LANCA_NUMRAR,
+	  date_format(lancamento.lanca_dataabertura,'%d/%m/%Y') AS DATA,
+	  fabrica.NOME AS FABRICA,
+	  pessoa.PESSOA,
+	  pessoa.NOME
+	  FROM rar_lancamento lancamento
+	  JOIN pessoa fabrica ON (lancamento.LANCA_FABRI_IDO = fabrica.PESSOA)
+	  JOIN pessoa pessoa ON (lancamento.lanca_pessoa = pessoa.pessoa)
+	  JOIN rar_item item ON (lancamento.lanca_numrar = item.item_numrar)
+	  JOIN rar_avaliacao avaliacao ON (avaliacao.avali_numrar = lancamento.lanca_numrar)
+	  LEFT JOIN rar_autorizacao autorizacao ON (autorizacao.AUTOR_NUMAUT = avaliacao.AVALI_AUTOR_NUMAUT)
+	  LEFT JOIN rar_usuarioxcliente usuarioxcliente ON (usuarioxcliente.USUCLI_PESSOA = lancamento.LANCA_PESSOA)
+	  WHERE avaliacao.AVALI_SITUACAO = 'P' 
+		  AND avaliacao.AVALI_AUTOR_NUMAUT IS NULL 
+		  AND lancamento.LANCA_PRENFI_IDO IS NULL 
+		  AND lancamento.lanca_status <> 'I'
+		  AND usuarioxcliente.USUCLI_USUAR_IDO = '" .$_SESSION['sId']. "'";
 
 		   if ($_SESSION['Menu'] == "3"){
 
-				$Sql.= " AND LANCA_NUMRAR LIKE 'M%'";
+				$Sql.= " AND lancamento.LANCA_NUMRAR LIKE 'M%'";
 
 			}else{
 
-				$Sql.= " AND LANCA_NUMRAR NOT LIKE 'M%'";
+				$Sql.= " AND lancamento.LANCA_NUMRAR NOT LIKE 'M%'";
 
 			}	
 
-		   $Sql.= " ORDER BY L.lanca_dataabertura, pessoa, lanca_numrar";
+		   $Sql.= " ORDER BY lancamento.lanca_dataabertura, pessoa.pessoa, lancamento.lanca_numrar";
 
-	//die($Sql);
+	// die($Sql);
 
 	$Stmt = mysql_query($Sql);
 
