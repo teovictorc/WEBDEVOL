@@ -1,4 +1,4 @@
-<? include("inc/headerI.inc.php"); 
+<? include("inc/headerI.inc.php");
 
 verifyAcess("ARZCONSAVALIACAO","S");
 
@@ -25,7 +25,7 @@ function situacao($value) {
 		case "C":
 
 				return "Conserto";  //somente está trocado para exibicao das imagens
-		
+
 		default:
 
 				return "";
@@ -59,7 +59,7 @@ function situacaoRel($value) {
 		case "C":
 
 				return "Conserto";  //somente está trocado para exibicao das imagens
-		
+
 		default:
 
 				return "";
@@ -246,7 +246,7 @@ a
 
               <option value="">..Selecione Grupo</option>
 
-              <? 
+              <?
 
 			$Sql = " SELECT * ";
 
@@ -256,7 +256,7 @@ a
 
 			$Stmt = mysql_query($Sql);
 
-		   	while($RsD = mysql_fetch_assoc($Stmt)) {  
+		   	while($RsD = mysql_fetch_assoc($Stmt)) {
 
 				if ($RsD["DEFEIG_CATEGORIA"] == "1"){
 
@@ -268,7 +268,7 @@ a
 
 				}
 
-				
+
 
 				?>
 
@@ -318,7 +318,7 @@ a
 
           <table width="100%"  border="0" cellpadding="0" cellspacing="0">
 
-		  
+
 
 		  <?
 
@@ -344,7 +344,7 @@ a
 
 			}
 
-			
+
 
 			if (trim($_GET['LANCA_CLIENTE_NOME'])) {
 
@@ -352,7 +352,7 @@ a
 
 			}
 
-			
+
 
 			if (trim($_GET['LANCA_FABRI_IDO'])) {
 
@@ -402,7 +402,7 @@ a
 
 			}
 
-			
+
 
 			if (trim($_GET['AVALI_AREZ_DEFEIG_IDO'])) {
 
@@ -410,7 +410,7 @@ a
 
 			}
 
-			
+
 
 			if (trim($_GET['LANCA_CATEGORIA'])) {
 
@@ -418,7 +418,7 @@ a
 
 			}
 
-					
+
 
 			if (trim($_GET['DT_INICIAL']) && trim($_GET['DT_FINAL']))
 
@@ -436,7 +436,7 @@ a
 
 			$TotalPares = 0;
 
-			
+
 
 			while($Rs = mysql_fetch_assoc($Stmt)) {
 
@@ -477,9 +477,10 @@ a
                 <tr class="tab_usuarios" >
 
                   <td width="10%"><div align="center">N&ordm; RAR</div></td>
+                  <td width="10%"><div align="center">N&ordm; BLOCO DE AN&Aacute;LISE</div></td>
 
                   <td width="10%"><div align="center">DATA ABERTURA </div></td>
-				  <td width="10%"><div align="center">DATA AVALIAÇÃO </div></td>
+				  <td width="10%"><div align="center">DATA AVALIA&Ccedil;&Atilde;O </div></td>
 
                   <td width="5%"><div align="center">STATUS</div></td>
 
@@ -497,11 +498,11 @@ a
 
                 </tr>
 
-                <? 
+                <?
 
 
 
-				$Sql = "SELECT I.ITEM_QTDE, A.AVALI_SITUACAO, L.LANCA_NUMRAR, LANCA_CATEGORIA, date_format(L.lanca_dataabertura,'%d/%m/%Y') AS DATA,".
+				$Sql = "SELECT I.ITEM_QTDE, A.AVALI_SITUACAO, L.LANCA_NUMRAR, L.LANCA_NBLOCO_ANALISE, LANCA_CATEGORIA, date_format(L.lanca_dataabertura,'%d/%m/%Y') AS DATA,".
 
 						" F.NOME As FABRICA,P.PESSOA,P.NOME, date_format(A.avali_arez_data,'%d/%m/%Y') AS DATA_AVAL, ".
 
@@ -519,7 +520,7 @@ a
 
 						"       AND I.ITEM_NUMRAR = L.LANCA_NUMRAR AND USUCLI_PESSOA = L.LANCA_PESSOA AND USUCLI_USUAR_IDO = '" .$_SESSION['sId']. "'";
 
-			
+
 
 				if (trim($_GET['LANCA_NUMRAR'])) {
 
@@ -527,7 +528,7 @@ a
 
 				}
 
-				
+
 
 				if (trim($_GET['LANCA_CLIENTE_NOME'])) {
 
@@ -535,7 +536,7 @@ a
 
 				}
 
-				
+
 
 				if (trim($_GET['LANCA_FABRI_IDO'])) {
 
@@ -585,11 +586,11 @@ a
 
 				}
 
-				
+
 
 				$Sql.= "AND A.AVALI_AREZ_DEFEIG_IDO = '" .$Rs["DEFEIG_IDO"]. "' ";
 
-				
+
 
 				if (trim($_GET['LANCA_CATEGORIA'])) {
 
@@ -597,7 +598,7 @@ a
 
 				}
 
-						
+
 
 				if (trim($_GET['DT_INICIAL']) && trim($_GET['DT_FINAL']))
 
@@ -641,13 +642,15 @@ a
 
 					}
 
-		
+
 
 					?>
 
 					<tr bordercolor="#00CCFF" class="tab_usuarios_info">
 
 					<td><div align="center"><a href="pesq_avaliacao_realizada.php?Id=<?=$RsI["LANCA_NUMRAR"]?>"><?=$RsI["LANCA_NUMRAR"]?></a></div></td>
+
+					<td width="10%"><div align="center"><?=$RsI["LANCA_NBLOCO_ANALISE"]?></div></td>
 
 					<td width="10%"><div align="center"><?=$RsI["DATA"]?></div></td>
 					<td width="10%"><div align="center"><?=$RsI["DATA_AVAL"]?></div></td>
@@ -692,7 +695,7 @@ a
 
             <tr>
 
-              <td width="20%"><div align="center">              </div></td>
+              <td width="20%"><div align="center"></div></td>
 
               <td width="20%"><div align="right"></div></td>
 
@@ -752,7 +755,7 @@ a
 
     </table>
 
-<input type="hidden" name="PESQUISAR" value="S">	
+<input type="hidden" name="PESQUISAR" value="S">
 
    </form>
 

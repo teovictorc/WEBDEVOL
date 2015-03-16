@@ -1,5 +1,5 @@
 <?php
-include("inc/headerI.inc.php"); 	
+include("inc/headerI.inc.php");
 
 verifyAcess("INCRECLAMACAO","S");
 
@@ -52,19 +52,7 @@ $Num40 = validazero($_GET['ITEM_NUM40']);
 ?>
 
 <!--<script src="js/jquery.min.js" type="text/javascript"></script> -->
-<script src="js/ajaxupload.3.6.js" type="text/javascript"></script> 
-
-
-<style type="text/css">
-
-<!--
-
-.style1 {font-weight: bold}
-
--->
-
-</style>
-
+<script src="js/ajaxupload.3.6.js" type="text/javascript"></script>
 
 
 <link href="wfa.css" rel="stylesheet" type="text/css">
@@ -101,16 +89,16 @@ Bolsa</td>
              Carteira</td>
            </tr>
          <tr valign="middle" bgcolor="#FFFFFF" class="">
-           <td><input name="LANCA_CATEGORIA" type="radio" class="" value="2" <?php if ($Categoria == "2"){?> checked="checked" <?php }?> onclick="MostraDados(1);clearNF();" /> 
+           <td><input name="LANCA_CATEGORIA" type="radio" class="" value="2" <?php if ($Categoria == "2"){?> checked="checked" <?php }?> onclick="MostraDados(1);clearNF();" />
              Sand&aacute;lia
 </td>
-           <td class=""><input name="LANCA_CATEGORIA" type="radio" class="" value="3" <?php if ($Categoria == "3"){?> checked="checked" <?php }?> onclick="MostraDados(1);clearNF();" /> 
+           <td class=""><input name="LANCA_CATEGORIA" type="radio" class="" value="3" <?php if ($Categoria == "3"){?> checked="checked" <?php }?> onclick="MostraDados(1);clearNF();" />
              Botas
 </td>
-           <td class=""><input name="LANCA_CATEGORIA" type="radio" class="" value="4" <?php if ($Categoria == "4"){?> checked="checked" <?php }?> onclick="MostraDados(1);clearNF();" /> 
+           <td class=""><input name="LANCA_CATEGORIA" type="radio" class="" value="4" <?php if ($Categoria == "4"){?> checked="checked" <?php }?> onclick="MostraDados(1);clearNF();" />
              Tamanco
 </td>
-           <td><input name="LANCA_CATEGORIA" type="radio" class="" value="8" <?php if ($Categoria == "8"){?> checked="checked" <?php }?> onclick="MostraDados(4);clearNF();" /> 
+           <td><input name="LANCA_CATEGORIA" type="radio" class="" value="8" <?php if ($Categoria == "8"){?> checked="checked" <?php }?> onclick="MostraDados(4);clearNF();" />
              Acess&oacute;rios
 </td>
          </tr>
@@ -123,7 +111,7 @@ Bolsa</td>
 
        <td width="15%" height="10" class=""><strong>C&oacute;digo</strong></td>
 
-       <td width="38%" height="10"><select name="LANCA_PESSOA" class="form" id="LANCA_PESSOA" onChange="CompleteData(this);clearNF();">
+       <td width="38%" height="10"><select name="LANCA_PESSOA" class="form" id="LANCA_PESSOA" onChange="CompleteData(this);clearNF();" style="width: 225px;">
 
 	   				<option value="">..Selecione</option>
 
@@ -166,9 +154,9 @@ Bolsa</td>
        <td width="33%" height="10"><input name="DIAS" type="hidden" class="campo_amarelo" id="DIAS" value="<?=$_GET['DIAS']?>" size="5" maxlength="5" readOnly>
 
          <input name="MENU" type="hidden" class="campo_amarelo" id="MENU" value="<?=$_SESSION['Menu']?>" size="5" maxlength="5" readOnly>
-
-         <span class="campo_amarelo">
-
+          <?php if(!empty($_GET['DIAS'])){?>
+            <span class="campo_amarelo">
+          <?php } ?>
          <?=$Rs["SERVI_PESSO_IDO"]?>
 
          </span></td>
@@ -223,11 +211,11 @@ Bolsa</td>
 
      </tr>
 
-	 <tr bgcolor="#FFFFFF" class="">
+     <tr bgcolor = "#FFFFFF" class="">
 
-       <td colspan="4" class="tit_form"><strong>Dados do consumidor </strong></td>
+        <td colspan="4" class="tit_form"><strong>Dados do consumidor </strong></td>
 
-       </tr>
+        </tr>
 
 	   <tr>
 
@@ -257,7 +245,7 @@ Bolsa</td>
 
 	 </tr>
 
-	 
+
 
      <tr bgcolor="#FFFFFF" class="">
 
@@ -333,7 +321,7 @@ Bolsa</td>
 
 			   </tr>
 
-		   </table>   
+		   </table>
 
 		 </div>	   </td>
 
@@ -469,7 +457,7 @@ Bolsa</td>
 
 				</div>
 
-			   
+
 
 			   	<div id="mensagem_foto1_2" style="display:none">
 
@@ -489,14 +477,14 @@ Bolsa</td>
 
              </tr>
 
-             
+
 
              <tr>
 
                <td>
 
                  <div align="left">
-                   <input name="fileProd" type="file" class="campo_texto" id="fileProd" onchange="LoadImagemProduto();" size="15"> 
+                   <input name="fileProd" type="file" class="campo_texto" id="fileProd" onchange="LoadImagemProduto();" size="15">
 				   <input type="hidden" name="fileProdNome" id="fileProdNome" value="" />
                  </div></td>
 
@@ -540,7 +528,7 @@ Bolsa</td>
 
 				</div>
 
-			   
+
 
 			   	<div id="mensagem_foto2_2" style="display:none">
 
@@ -556,13 +544,13 @@ Bolsa</td>
 
 			   	</div>
 
-			   
+
 
 			   </td>
 
              </tr>
 
-             
+
 
              <tr>
 
@@ -601,7 +589,7 @@ Bolsa</td>
 
                <td class="">
 
-			   
+
 
 			   <div id="mensagem_foto3_1" style="display:">
 
@@ -617,7 +605,7 @@ Bolsa</td>
 
 				</div>
 
-			   
+
 
 			   	<div id="mensagem_foto3_2" style="display:none">
 
@@ -639,7 +627,7 @@ Bolsa</td>
 
              </tr>
 
-            
+
 
                <td>
 
@@ -678,7 +666,7 @@ Bolsa</td>
 
      <tr>
 
-       <td colspan="4"> 
+       <td colspan="4">
 
 	   <div id="idButtons" style="display:" align="center">
 
@@ -783,7 +771,7 @@ function SomaQtde(){
 
 	document.form.ITEM_QTDE.value = $Qtde;
 
-	
+
 
 	calcAll();
 
@@ -841,31 +829,31 @@ function ConsistNotaFiscal() {
 		if (document.form.LANCA_CATEGORIA[0].checked){
 			categoria = document.form.LANCA_CATEGORIA[0].value;
 		}
-		
+
 		if (document.form.LANCA_CATEGORIA[1].checked){
 			categoria = document.form.LANCA_CATEGORIA[1].value;
 		}
-		
+
 		if (document.form.LANCA_CATEGORIA[2].checked){
 			categoria = document.form.LANCA_CATEGORIA[2].value;
 		}
-		
+
 		if (document.form.LANCA_CATEGORIA[3].checked){
 			categoria = document.form.LANCA_CATEGORIA[3].value;
 		}
-	
+
 		if (document.form.LANCA_CATEGORIA[4].checked){
 			categoria = document.form.LANCA_CATEGORIA[4].value;
 		}
-	
+
 		if (document.form.LANCA_CATEGORIA[5].checked){
 			categoria = document.form.LANCA_CATEGORIA[5].value;
 		}
-	
+
 		if (document.form.LANCA_CATEGORIA[6].checked){
 			categoria = document.form.LANCA_CATEGORIA[6].value;
 		}
-	
+
 		if (document.form.LANCA_CATEGORIA[7].checked){
 			categoria = document.form.LANCA_CATEGORIA[7].value;
 		}
@@ -873,7 +861,7 @@ function ConsistNotaFiscal() {
                 var url = 'autoCompletar.php?cmd=p_r&NF=' + escape(document.form.ITEM_NF.value) + '&PESSOA=' + escape(document.form.LANCA_PESSOA.value) + '&REFERENCIA=' + escape(document.form.ITEM_REFERENCIA.value) + '&NOMECLIENTE=' + escape(document.form.NOME.value) + '&Categoria='+escape(categoria);
 		JSUtilRequest(url);
 
-		
+
 
 }
 
@@ -907,7 +895,7 @@ function verificaForm(formObj) {
 
 	}
 
-	
+
 
 	/*if (formObj.DIAS.value > 180){
 
@@ -945,7 +933,7 @@ function verificaForm(formObj) {
 
 		return;
 
-	}	
+	}
 
 	if (formObj.CLIENTE_NOME.value == "") {
 
@@ -967,7 +955,7 @@ function verificaForm(formObj) {
 
 	}
 
-	
+
 
 	if (!formObj.LANCA_TIPORECLAMACAO[0].checked && !formObj.LANCA_TIPORECLAMACAO[1].checked) {
 
@@ -1025,7 +1013,7 @@ function verificaForm(formObj) {
 
 	}
 
-	
+
 
 	/*if (document.form.ITEM_PAR.value == "") {
 
@@ -1045,7 +1033,7 @@ function verificaForm(formObj) {
 
 	}
 
-	
+
 
 	if (formObj.MENU.value != "3" || (formObj.MENU.value == "3" && !document.form.LANCA_CATEGORIA[0].checked)){
 
@@ -1095,9 +1083,9 @@ function verificaForm(formObj) {
 
 	document.getElementById("idButtons").style.display = "none";
 
-	
 
-	formObj.action = "pesq_reclamacaook.php";		
+
+	formObj.action = "pesq_reclamacaook.php";
 
 	document.form.submit();
 
@@ -1111,7 +1099,7 @@ function MostraDados(opcao){
 
 		document.getElementById("numeropar").style.display = "";
 
-		document.getElementById("qtdepar").style.display = "none";	
+		document.getElementById("qtdepar").style.display = "none";
 
 		document.getElementById("mensagem_foto1_1").style.display = "";
 
@@ -1127,11 +1115,11 @@ function MostraDados(opcao){
 
 	}
 
-	
+
 
 	if (opcao == 2 || opcao == 3 || opcao == 4){
 
-		document.getElementById("numeropar").style.display = "none";	
+		document.getElementById("numeropar").style.display = "none";
 
 		document.getElementById("qtdepar").style.display = "";
 
@@ -1149,7 +1137,7 @@ function MostraDados(opcao){
 
 	}
 
-	
+
 
 }
 
@@ -1161,9 +1149,9 @@ function abrir_janela_popup(theURL,winName,features) {
 
 	}
 
-	
 
-function abre_listagem(){	
+
+function abre_listagem(){
 
 	abrir_janela_popup('rel_listagem_fabrica.php','popup_nf','width=600,height=500,top=0,left=0, scrollbars=yes,status=no,resizable=no,dependent=yes');
 
@@ -1200,7 +1188,7 @@ function clearNF() {
 
 	alert("N�o foi possivel realizar a reclama��o,\nUma ou mais imagens atingiram o tamanho m�ximo de 150Kb !");
 
-	
+
 
 <?php } ?>
 
@@ -1248,7 +1236,7 @@ function clearNF() {
                     }
             }
     );
-	
+
 	 new AjaxUpload('#fileDefe',
             {
                     action: 'upload_preview.php',

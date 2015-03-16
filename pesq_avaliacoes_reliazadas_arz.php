@@ -1,4 +1,4 @@
-<? include("inc/headerI.inc.php"); 
+<? include("inc/headerI.inc.php");
 
 verifyAcess("ARZCONSAVALIACAO","S");
 
@@ -25,7 +25,7 @@ function situacao($value) {
 		case "C":
 
 				return "Conserto";  //somente está trocado para exibicao das imagens
-		
+
 		default:
 
 				return "";
@@ -59,7 +59,7 @@ function situacaoRel($value) {
 		case "C":
 
 				return "Conserto";  //somente está trocado para exibicao das imagens
-		
+
 		default:
 
 				return "";
@@ -86,7 +86,7 @@ function situacaoRel($value) {
 
       </table>
 
-	  
+
 
     <table width="100%"  border="0" class="tab_conteudo">
 
@@ -292,7 +292,7 @@ a
 
               </tr>
 
-<? 
+<?
 
 	$Sql = "SELECT I.ITEM_QTDE, A.AVALI_SITUACAO, L.LANCA_NUMRAR, L.LANCA_NBLOCO_ANALISE, LANCA_CATEGORIA, date_format(L.lanca_dataabertura,'%d/%m/%Y') AS DATA,".
 
@@ -316,7 +316,7 @@ a
 
 	}
 
-	
+
 
 	if (trim($_GET['LANCA_CLIENTE_NOME'])) {
 
@@ -324,7 +324,7 @@ a
 
 	}
 
-	
+
 
 	if (trim($_GET['LANCA_FABRI_IDO'])) {
 
@@ -376,7 +376,7 @@ a
 
 	}
 
-	
+
 
 	if (trim($_GET['LANCA_CATEGORIA'])) {
 
@@ -384,7 +384,7 @@ a
 
 	}
 
-			
+
 
 	if (trim($_GET['DT_INICIAL']) && trim($_GET['DT_FINAL']))
 
@@ -402,7 +402,7 @@ a
 
 		$TotalPares = 0;
 
-	
+
 
 	while($Rs2 = mysql_fetch_assoc($Stmt)) {
 
@@ -412,17 +412,17 @@ a
 
 	}
 
-	
+
 
 	$_pagi_sql = $Sql;
 
-	
+
 
 	include_once("inc/paginator.inc.php");
 
-		
 
-	while($Rs = mysql_fetch_assoc($_pagi_result)) { 
+
+	while($Rs = mysql_fetch_assoc($_pagi_result)) {
 
 		if ($Rs["LANCA_CATEGORIA"] == "1"){
 
@@ -450,7 +450,7 @@ a
 
 		}
 
-		
+
 
 		?>
 
@@ -478,9 +478,9 @@ a
 
               <td width="5%"><div align="center"><img src="imagens/<?=((trim(situacao($Rs["AVALI_SITUACAO"]))) ? "" .strtolower(situacao($Rs["AVALI_SITUACAO"])) : "naoavaliado")?>.gif" width="15" height="15"></div></td>
 
-              <td><?=$Rs["PESSOA"]?> 
+              <td><?=$Rs["PESSOA"]?>
 
-                - 
+                -
 
                     <?=$Rs["NOME"]?>                </td>
 
@@ -549,7 +549,7 @@ a
               <td width="3%" class=""><div align="center"><img src="imagens/emanalise.gif" width="13" height="14"></div></td>
 
               <td width="20%" class=""><strong>Avalia&ccedil;&otilde;es em an&aacute;lise </strong></td>
-			  
+
 			  <td width="3%" class=""><div align="center"><img src="imagens/conserto.gif" width="13" height="14"></div></td>
 
               <td width="20%" class=""><strong>Avalia&ccedil;&otilde;es em conserto </strong></td>
@@ -577,7 +577,7 @@ a
 
     </table>
 
-<input type="hidden" name="PESQUISAR" value="S">	
+<input type="hidden" name="PESQUISAR" value="S">
 
    </form>
 

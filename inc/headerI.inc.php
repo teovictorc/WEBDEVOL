@@ -1,22 +1,26 @@
-<?php include("conn.inc.php"); 
+<?php include("conn.inc.php");
 
-if($_SESSION['Menu'] == 2){ 
+function base_url(){
+ return "http://" . $_SERVER['SERVER_NAME']."/WEBDEVOl/principal.php";
+}
+
+if($_SESSION['Menu'] == 2){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_s.jpg";
 
-}elseif($_SESSION['Menu'] == 3){ 
+}elseif($_SESSION['Menu'] == 3){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_tm.jpg";
 
-}elseif($_SESSION['Menu'] == 4){ 
+}elseif($_SESSION['Menu'] == 4){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_r.jpg";
 
-}elseif($_SESSION['Menu'] == 5){ 
+}elseif($_SESSION['Menu'] == 5){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_iaf.jpg";
 
-}elseif($_SESSION['Menu'] == 6){ 
+}elseif($_SESSION['Menu'] == 6){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_pesq.jpg";
 
@@ -34,7 +38,7 @@ $_GET["Categoria"] = "1,2,3,4,5,6,7,8,9,10,11";
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!-- DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"--> 
+<!-- DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"-->
 
 <html>
 
@@ -44,8 +48,10 @@ $_GET["Categoria"] = "1,2,3,4,5,6,7,8,9,10,11";
 
 <title><?=$NomeSistema?></title>
 
+<link rel="stylesheet" href="css/bootstrap.css">
 <link href="css/global.css" rel="stylesheet" type="text/css" />
-
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script language="JavaScript" type="text/JavaScript">
 
 <!--
@@ -136,17 +142,17 @@ function MM_swapImage() { //v3.0
 
 <script	type="text/javascript">
 
-if(ns4)_d.write("<scr"+"ipt type=text/javascript src=menu/mmenuns4.js><\/scr"+"ipt>");		
+if(ns4)_d.write("<scr"+"ipt type=text/javascript src=menu/mmenuns4.js><\/scr"+"ipt>");
 
-  else _d.write("<scr"+"ipt type=text/javascript src=menu/mmenudom.js><\/scr"+"ipt>"); 
+  else _d.write("<scr"+"ipt type=text/javascript src=menu/mmenudom.js><\/scr"+"ipt>");
 
-  
+
 
 function deleteById(sPage,FormID) {
 
 	var Ids = "";
 
-	if(confirm("Confirma a exclus�o do(s) registro(s)?")==true){
+	if(confirm("Confirma a exclusão do(s) registro(s)?")==true){
 
 		if (FormID) {
 
@@ -162,7 +168,7 @@ function deleteById(sPage,FormID) {
 
 					for(x = 0; x < FormID.length; x++) {
 
-						if (FormID[x].checked) 
+						if (FormID[x].checked)
 
 							Ids+= ((Ids.length == 0) ? "" : ",") + "'" + escape(FormID[x].value) + "'";
 
@@ -196,7 +202,7 @@ function deleteById(sPage,FormID) {
 
 function cancelOperation(pageDest) {
 
-	if(confirm("Tem certeza que deseja cancelar a operacao ?"))
+	if(confirm("Tem certeza que deseja cancelar a operação?"))
 
 		document.location.href = pageDest;
 
@@ -204,7 +210,7 @@ function cancelOperation(pageDest) {
 
 </script>
 
-<script type="text/javascript" src="menu/menu_data.php"></script>	
+<script type="text/javascript" src="menu/menu_data.php"></script>
 
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
 
@@ -212,13 +218,13 @@ function cancelOperation(pageDest) {
 
     <td width="778" height="80" class="bg_topo">
 
-    
+
 
     <table width="778" border="0" cellspacing="0" cellpadding="0" align="center">
 
       <tr>
 
-        <td width="500"><h1><?=$NomeSistema?></h1></td>
+        <td width="500"><a href="<?=base_url();?>"><h1><?=$NomeSistema?></h1></a></td>
 
         <td align="center"><h2>Ol&aacute;, <?=$_SESSION['sNome']?></h2>
 
@@ -228,7 +234,7 @@ function cancelOperation(pageDest) {
 
       </tr>
 
-    </table>    
+    </table>
 
     </td>
 

@@ -1,25 +1,29 @@
 <?php
-//include("inc/headerI.inc.php"); 
+//include("inc/headerI.inc.php");
 
-include("inc/conn.inc.php"); 
+include("inc/conn.inc.php");
 
-if($_SESSION['Menu'] == 2){ 
+function base_url(){
+ return "http://" . $_SERVER['SERVER_NAME']."/WEBDEVOl/principal.php";
+}
+
+if($_SESSION['Menu'] == 2){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_s.jpg";
 
-}elseif($_SESSION['Menu'] == 3){ 
+}elseif($_SESSION['Menu'] == 3){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_tm.jpg";
 
-}elseif($_SESSION['Menu'] == 4){ 
+}elseif($_SESSION['Menu'] == 4){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_r.jpg";
 
-}elseif($_SESSION['Menu'] == 5){ 
+}elseif($_SESSION['Menu'] == 5){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_iaf.jpg";
 
-}elseif($_SESSION['Menu'] == 6){ 
+}elseif($_SESSION['Menu'] == 6){
 
 	$ImagemTopo = "wfa_arezzo_r4_c4_pesq.jpg";
 
@@ -35,7 +39,7 @@ verifyAcess("ARZ_AVALIPENDENTE","S");
 ?>
 <!DOCTYPE html>
 <html>
-<?php 
+<?php
 
 if ($_POST["Categoria"] != ""){
 	$Categoria = $_POST['Categoria'];
@@ -65,7 +69,7 @@ function situacao($value) {
 }
 ?>
 <head>
-    
+
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
     <title><?=$NomeSistema?></title>
@@ -73,9 +77,9 @@ function situacao($value) {
     <link href="wfa.css" rel="stylesheet" type="text/css">
     <link href="css/global.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>    
-    <script src="js/jquery-ui.min.js"></script>    
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
 </head>
 <body>
 <div id="Layer1" style="position:absolute; left:249px; top:57px; width:69px; height:29px; z-index:1; visibility: hidden;"><a href=http://www.milonic.com/styleproperties.php class="style1">http://www.milonic.com/styleproperties.php</a></div>
@@ -85,12 +89,12 @@ function situacao($value) {
     <td width="778" height="80" class="bg_topo">
     <table width="778" border="0" cellspacing="0" cellpadding="0" align="center">
       <tr>
-        <td width="500"><h1><?=$NomeSistema?></h1></td>
+        <td width="500"><a href="<?=base_url();?>"><h1><?=$NomeSistema?></h1></a></td>
         <td align="center"><h2>Ol&aacute;, <?=$_SESSION['sNome']?></h2>
           </br >
           <a href="login.php" class="email"><img src="img/bts/logof.jpg" alt="logoff" align="absmiddle" border="0"> logoff</a></td>
       </tr>
-    </table>    
+    </table>
     </td>
     <td class="bg_topo">&nbsp;</td>
   </tr>
@@ -123,11 +127,11 @@ function situacao($value) {
       <tr>
         <td height="32" class="tab_titulo"><h4>Avalia&ccedil;&otilde;es pendentes - <?=$Texto?></h4></td>
       </tr>
-    </table>  
+    </table>
     <table width="100%"  border="0" class="tab_inclusao">
       <tr>
         <td width="18%" class=""><div align="left"><strong>Per&iacute;odo de pesquisa: </strong></div></td>
-        <td width="29%" class=""><strong>de <input name="DT_INICIAL" type="text" class="form" data-inputmask="'mask': '99/99/9999'" value="<?=$_GET['DT_INICIAL']?>" size="9" maxlength="10" id="dateFilterInicial"> a 
+        <td width="29%" class=""><strong>de <input name="DT_INICIAL" type="text" class="form" value="<?=$_GET['DT_INICIAL']?>" size="9" maxlength="10" id="dateFilterInicial"> a
         <input name="DT_FINAL" type="text" class="form" value="<?=$_GET['DT_FINAL']?>" size="9" maxlength="10" id="dateFilterFinal">
         </strong></td>
         <td width="26%" valign="middle" class="">
@@ -193,9 +197,9 @@ function situacao($value) {
             </tr>
             </tfoot>
           <tbody>
-<?php 
+<?php
 
-	$Sql = "SELECT DS_RESUMIDA_ITEM DESCRICAO,I.ITEM_QTDE, A.AVALI_SITUACAO, L.LANCA_CATEGORIA, L.LANCA_NUMRAR, L.LANCA_NBLOCO_ANALISE, date_format(L.lanca_dataabertura,'%d/%m/%Y') AS DATA,F.NOME As FABRICA,P.PESSOA,P.NOME, date_format(A.AVALI_AREZ_DATA,'%d/%m/%Y') AS DATA_AVALIACAO ".
+	$Sql = "SELECT DS_RESUMIDA_ITEM DESCRICAO,I.ITEM_QTDE, A.AVALI_SITUACAO, L.LANCA_CATEGORIA, L.LANCA_NUMRAR, L.LANCA_NBLOCO_ANALISE, date_format(L.lanca_dataabertura,'%d/%m/%Y') AS DATA, L.lanca_dataabertura, F.NOME As FABRICA,P.PESSOA,P.NOME, date_format(A.AVALI_AREZ_DATA,'%d/%m/%Y') AS DATA_AVALIACAO ".
 	       " FROM pessoa P, rar_lancamento L, pessoa F, rar_avaliacao A, rar_usuarioxcliente UC, rar_item I, item_material IM ".
                " WHERE L.LANCA_FABRI_IDO = F.PESSOA ".
                "       AND L.lanca_pessoa = P.PESSOA ".
@@ -215,7 +219,7 @@ function situacao($value) {
             $Sql.= " AND LANCA_NUMRAR LIKE 'M%'";
 	}else{
             $Sql.= " AND LANCA_NUMRAR NOT LIKE 'M%'";
-	}	
+	}
 	if (trim($_GET['DT_INICIAL']) && trim($_GET['DT_FINAL']))
             $Sql.= "AND L.LANCA_DATAABERTURA BETWEEN '" . strdata2db($_GET['DT_INICIAL']). "' AND '" . strdata2db($_GET['DT_FINAL']). "' ";
 	//$Sql.= " ORDER BY LANCA_DATAABERTURA, LANCA_NUMRAR";
@@ -225,7 +229,7 @@ function situacao($value) {
     $TotalPares = 0;
     while ($row = mysql_fetch_array($Stmt)){
         $TotalReclamacao = $TotalReclamacao + 1;
-        $TotalPares = $TotalPares + (int)$row["ITEM_QTDE"];		
+        $TotalPares = $TotalPares + (int)$row["ITEM_QTDE"];
      ?>
       <tr>
           <td align="center"><a onClick="abrir_janela_popup('email_avaliacoes_realizadas.php?Referencia=<?=$row["LANCA_NUMRAR"]?>','prenota','width=400,height=400,top=0,left=0, scrollbars=no,status=no,resizable=no,dependent=yes')" href="#"><img src="imagens/email.gif" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="20" height="20" border="0"></a></td>
@@ -233,7 +237,7 @@ function situacao($value) {
           <td align="left"><?=$row["DESCRICAO"]?></td>
           <td align="center"><?=$row["LANCA_NUMRAR"]?></td>
           <td align="center"><?=$row["LANCA_NBLOCO_ANALISE"]?></td>
-          <td align="center"><?=trim($row["DATA"])?></td>
+          <td align="center"><?=trim($row["lanca_dataabertura"])?></td>
           <td align="center"><?=$row["DATA_AVALIACAO"] ?></td>
           <td align="center"><?=$row["ITEM_QTDE"]?></td>
           <td align="center"><?=$row["AVALI_SITUACAO"];?></td>
@@ -241,7 +245,7 @@ function situacao($value) {
           <td align="left"><?=$row["PESSOA"]?> - <?=$row["NOME"]?></td>
           <td align="center"><?=$row["FABRICA"]?></td>
       </tr>
-    <?php 
+    <?php
     }
     ?>
           </tbody>
@@ -249,7 +253,7 @@ function situacao($value) {
 
           <table width="100%"  border="0" align="center" class="">
 
-            
+
 
             <tr>
 
@@ -298,7 +302,7 @@ function situacao($value) {
               <td width="" class=""><div align="center"><img src="imagens/emanalise.gif" width="13" height="14"></td>
 
               <td class=""><strong>Avalia&ccedil;&otilde;es em an&aacute;lise </strong></td>
-			  
+
 			  <td width="" class=""><div align="center"><img src="imagens/conserto.gif" width="13" height="14"></td>
 
               <td class=""><strong>Avalia&ccedil;&otilde;es em conserto </strong></td>
@@ -353,9 +357,9 @@ function situacao($value) {
 <script type="text/javascript" src="menu/milonic_src.js"></script>
 <script type="text/javascript">
 
-    if(ns4)_d.write("<scr"+"ipt type=text/javascript src=menu/mmenuns4.js><\/scr"+"ipt>");		
+    if(ns4)_d.write("<scr"+"ipt type=text/javascript src=menu/mmenuns4.js><\/scr"+"ipt>");
 
-      else _d.write("<scr"+"ipt type=text/javascript src=menu/mmenudom.js><\/scr"+"ipt>"); 
+      else _d.write("<scr"+"ipt type=text/javascript src=menu/mmenudom.js><\/scr"+"ipt>");
 
     function deleteById(sPage,FormID) {
 
@@ -377,7 +381,7 @@ function situacao($value) {
 
                                             for(x = 0; x < FormID.length; x++) {
 
-                                                    if (FormID[x].checked) 
+                                                    if (FormID[x].checked)
 
                                                             Ids+= ((Ids.length == 0) ? "" : ",") + "'" + escape(FormID[x].value) + "'";
 
@@ -467,17 +471,17 @@ jQuery(document).ready(function($){
     });
 
     var table = $('#tableAvaliacoesPendentes').DataTable({
-        "columnDefs": [ 
+        "columnDefs": [
           {
-            "targets": [1, 8],
+            "targets": [1],
             "visible": false
           },
           {
-            "targets": [2, 9],
+            "targets": [2],
             "searchable": false
           },
           {
-            "targets": [4, 5],
+            "targets": [6],
             "type": "customdatesort"
           }
         ]
@@ -487,10 +491,9 @@ jQuery(document).ready(function($){
       table.columns( 1 ).search( this.value ).draw();
     });
     $('#statusFilter').on( 'change', function () {
-      table.columns( 8 ).search( this.value ).draw();
+      table.columns( 9 ).search( this.value ).draw();
     });
-    $("#dateFilterInicial").mask("99/99/9999");
-    $("#dateFilterFinal").mask("99/99/9999");
+    $("#dateFilterInicial,#dateFilterFinal").mask("99/99/9999");
 });
 function FilterSearch() {
 
