@@ -280,11 +280,13 @@ a
 
               <td width="13%" ><div align="center">N&ordm; RAR</div></td>
 
+              <td width="13%" ><div align="center">N&ordm; BLOCO DE AN&Aacute;LISE</div></td>
+
               <td width="10%" ><div align="center">DATA AVALIA&Ccedil;&Atilde;O </div></td>
 
               <td width="5%" ><div align="center">SITUA&Ccedil;&Atilde;O AVALIA&Ccedil;&Atilde;O</div></td>
 
-              <td ><div align="left">CLIENTE</div>                <div align="center"></div></td>
+              <td ><div align="left">CLIENTE</div></td>
 
               <td width="30%" >FABRICANTE</td>
 
@@ -292,7 +294,7 @@ a
 
 <? 
 
-	$Sql = "SELECT I.ITEM_QTDE, A.AVALI_SITUACAO, L.LANCA_NUMRAR, LANCA_CATEGORIA, date_format(L.lanca_dataabertura,'%d/%m/%Y') AS DATA,".
+	$Sql = "SELECT I.ITEM_QTDE, A.AVALI_SITUACAO, L.LANCA_NUMRAR, L.LANCA_NBLOCO_ANALISE, LANCA_CATEGORIA, date_format(L.lanca_dataabertura,'%d/%m/%Y') AS DATA,".
 
 	        " F.NOME As FABRICA,P.PESSOA,P.NOME, date_format(A.avali_arez_data,'%d/%m/%Y') AS DATA_AVAL ".
 
@@ -465,6 +467,8 @@ a
                   <?=$Rs["LANCA_NUMRAR"]?>
 
               </a></div></td>
+
+              <td><div align="center"><?=$Rs["LANCA_NBLOCO_ANALISE"]?></div></td>
 
               <td width="10%"><div align="center">
 

@@ -272,6 +272,17 @@
        </tr>
 
      <tr>
+       <td height="15" class=""><strong>N<sup>o</sup> Bloco de An&aacute;lise </strong></td>
+
+       <td height="15" class=""><span class="">
+
+         <input name="textfield522232" type="text" disabled class="form"  value="<?=$Rs['LANCA_NBLOCO_ANALISE']?>" size="30" maxlength="50">
+
+       </span></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr>
+     <tr>
 
        <td height="15" class=""><strong>Refer&ecirc;ncia</strong></td>
 
