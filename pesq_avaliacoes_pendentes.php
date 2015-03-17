@@ -139,6 +139,7 @@ function situacao($value) {
             <strong>Categoria:</strong>
             <select name="LANCA_CATEGORIA" class="form" id="categoriaFilter" >
                 <option value="">...Selecione</option>
+                <option value="">Todos</option>
                 <option value="1" <? if ($_GET['LANCA_CATEGORIA'] == "1"){?> selected <? }?>>Cal&ccedil;ados</option>
                 <option value="2" <? if ($_GET['LANCA_CATEGORIA'] == "2"){?> selected <? }?>>Sand&aacute;lias</option>
                 <option value="3" <? if ($_GET['LANCA_CATEGORIA'] == "3"){?> selected <? }?>>Botas</option>
@@ -167,9 +168,9 @@ function situacao($value) {
           <thead>
             <tr>
               <td align="center"></td>
+              <td align="center">N&ordm; RAR</td>
               <td align="center">Nº Categoria</td>
               <td align="center">Categoria</td>
-              <td align="center">N&ordm; RAR</td>
               <td align="center">N&ordm; An&aacute;lise</td>
               <td align="center">Data Abertura</td>
               <td align="center">Data Avalia&ccedil;&atilde;o</td>
@@ -183,9 +184,9 @@ function situacao($value) {
           <tfoot>
             <tr>
                 <td align="center"></td>
+                <td align="center">N&ordm; RAR</td>
                 <td align="center">Nº Categoria</td>
                 <td align="center">Categoria</td>
-                <td align="center">N&ordm; RAR</td>
                 <td align="center">N&ordm; An&aacute;lise</td>
                 <td align="center">Data Abertura</td>
                 <td align="center">Data Avalia&ccedil;&atilde;o</td>
@@ -233,9 +234,9 @@ function situacao($value) {
      ?>
       <tr>
           <td align="center"><a onClick="abrir_janela_popup('email_avaliacoes_realizadas.php?Referencia=<?=$row["LANCA_NUMRAR"]?>','prenota','width=400,height=400,top=0,left=0, scrollbars=no,status=no,resizable=no,dependent=yes')" href="#"><img src="imagens/email.gif" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="20" height="20" border="0"></a></td>
+          <td align="center"> <a href="pesq_avaliacao_pendente.php?Id=<?=$row["LANCA_NUMRAR"]?>"> <?=$row["LANCA_NUMRAR"]?></a></td>
           <td align="left"><?=$row["LANCA_CATEGORIA"]?></td>
           <td align="left"><?=$row["DESCRICAO"]?></td>
-          <td align="center"><?=$row["LANCA_NUMRAR"]?></td>
           <td align="center"><?=$row["LANCA_NBLOCO_ANALISE"]?></td>
           <td align="center"><?=trim($row["lanca_dataabertura"])?></td>
           <td align="center"><?=$row["DATA_AVALIACAO"] ?></td>
@@ -473,11 +474,11 @@ jQuery(document).ready(function($){
     var table = $('#tableAvaliacoesPendentes').DataTable({
         "columnDefs": [
           {
-            "targets": [1],
+            "targets": [2],
             "visible": false
           },
           {
-            "targets": [2],
+            "targets": [3],
             "searchable": false
           },
           {
@@ -488,7 +489,7 @@ jQuery(document).ready(function($){
     });
 
     $('#categoriaFilter').on( 'change', function () {
-      table.columns( 1 ).search( this.value ).draw();
+      table.columns( 2 ).search( this.value ).draw();
     });
     $('#statusFilter').on( 'change', function () {
       table.columns( 9 ).search( this.value ).draw();

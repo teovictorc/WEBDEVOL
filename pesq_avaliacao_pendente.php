@@ -42,7 +42,7 @@
 
 	$Stmt = mysql_query($Sql);
 
-	
+
 
 	if (!$Rs = mysql_fetch_assoc($Stmt)){
 
@@ -110,21 +110,11 @@
 
 	    $Tempo = $Meses." meses e ".$Dias." dias";
 
-		$Rar = $_GET['Id']; 
+		$Rar = $_GET['Id'];
 
 	}
 
 		?>
-
-<style type="text/css">
-
-<!--
-
-.style1 {font-weight: bold}
-
--->
-
-</style>
 
 <script>
 
@@ -215,7 +205,7 @@ function MM_swapImage() { //v3.0
 
       </table>
 
-	  
+
 
 	<table width="100%"  border="0" class="tab_inclusao">
 
@@ -355,7 +345,7 @@ function MM_swapImage() { //v3.0
 
 	   <?}?> Defeito consumidor
 
-	   
+
 
 	   <?if($Rs['LANCA_TIPORECLAMACAO'] == "L"){?>
 
@@ -379,6 +369,18 @@ function MM_swapImage() { //v3.0
 
        </tr>
 
+     <tr>
+
+       <td height="15" class=""><strong>N<sup>o</sup> do Bloco de An&aacute;lise</strong></td>
+
+       <td height="15" class=""><span class="">
+
+         <input name="NUM_BLOCO_ANALISE" type="text" disabled class="form"  value="<?=$Rs['LANCA_NBLOCO_ANALISE']?>" size="30" maxlength="50">
+
+       </span></td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr>
 	   <tr>
 
        <td height="15" class=""><strong>Refer&ecirc;ncia</strong></td>
@@ -545,7 +547,7 @@ function MM_swapImage() { //v3.0
 
              <tr class="">
 
-			 <? if ($Rs['LANCA_CATEGORIA'] <> "1"){ 
+			 <? if ($Rs['LANCA_CATEGORIA'] <> "1"){
 
 			 	$texto1="Foto do produto - frente";
 
@@ -622,52 +624,105 @@ function MM_swapImage() { //v3.0
        </table>         </td>
 
        </tr>
+       <tr>
+          <td colspan="5" class="tab_titulo"><strong>Log de Avalia&ccedil;&otilde;es</strong></td>
+       </tr>
+       <tr>
+          <td colspan="5">
+          <?
+          $Sql =  "SELECT rar_avaliacao.*,
+                          rar_usuario.USUAR_NOME,
+                          rar_lancamento.LANCA_PESSOA,
+                          rar_lancamento.LANCA_PESSOA_EMITENTE,
+                          date_format(rar_avaliacao.AVALI_AREZ_DATA,'%d/%m/%Y') AS ADATA
+                       FROM rar_avaliacao, rar_usuario, rar_lancamento
+                       WHERE AVALI_NUMRAR = '{$_GET['Id']}'
+                             AND LANCA_NUMRAR = AVALI_NUMRAR
+                             AND (USUAR_IDO = AVALI_AREZ_USUAR_IDO
+                                  OR AVALI_AREZ_USUAR_IDO IS NULL)";
+          $Stmt = mysql_query($Sql);
 
-     <tr>
+          if ($Rs = mysql_fetch_assoc($Stmt)) {
 
-<?
+            $AVALI_AREZ_DEFEIG_IDO = $Rs["AVALI_AREZ_DEFEIG_IDO"];
 
-$Sql =	"SELECT rar_avaliacao.*, rar_usuario.*, rar_lancamento.*, date_format(AVALI_AREZ_DATA,'%d/%m/%Y') As ADATA".
+            $AVALI_AREZ_DEFEIS_IDO = $Rs["AVALI_AREZ_DEFEIS_IDO"];
 
-		" FROM rar_avaliacao, rar_usuario, rar_lancamento ".
+            $AVALI_AREZ_DATA = (trim($Rs["ADATA"])) ? $Rs["ADATA"] : date('d/m/Y');
 
-		" WHERE AVALI_NUMRAR = '" .$_GET['Id']. "' AND LANCA_NUMRAR = AVALI_NUMRAR ".
+            $AVALI_AREZ_ENCERRADO = $Rs["AVALI_AREZ_ENCERRADO"];
 
-		"       AND (USUAR_IDO = AVALI_AREZ_USUAR_IDO OR AVALI_AREZ_USUAR_IDO IS NULL)";
+            $AVALI_AREZ_DETALHE = $Rs["AVALI_AREZ_DETALHE"];
 
-		//die($Sql);
 
-		$Stmt = mysql_query($Sql);
+            $AVALI_SITUACAO = $Rs["AVALI_SITUACAO"];
 
-		if ($Rs = mysql_fetch_assoc($Stmt)) {
+            $LANCA_STATUS = $Rs["LANCA_STATUS"];
 
-			$AVALI_AREZ_DEFEIG_IDO = $Rs["AVALI_AREZ_DEFEIG_IDO"];
+            $USUARIO = (!empty($Rs["USUAR_NOME"])) ? $USUARIO : $_SESSION['sNome'];
+          }
 
-			$AVALI_AREZ_DEFEIS_IDO = $Rs["AVALI_AREZ_DEFEIS_IDO"];
+        if($AVALI_AREZ_DEFEIG_IDO !== NULL){
+          $sql = " SELECT DEFEIG_DESCRICAO FROM rar_defeito_grupo WHERE rar_defeito_grupo.DEFEIG_IDO = {$AVALI_AREZ_DEFEIG_IDO}";
+          $Stmt = mysql_query($sql);
+          $grupo = mysql_fetch_row($Stmt);
+        }
 
-//			$AVALI_AREZ_DATA = ociresult($Stmt,"ADATA");
-
-			$AVALI_AREZ_DATA = (trim($Rs["ADATA"])) ? $Rs["ADATA"] : date('d/m/Y');
-
-			$AVALI_AREZ_ENCERRADO = $Rs["AVALI_AREZ_ENCERRADO"];
-
-			$AVALI_AREZ_DETALHE = $Rs["AVALI_AREZ_DETALHE"];
-
-			//echo("TEste....".$AVALI_AREZ_DETALHE);
-
-			$USUARIO = $Rs["USUAR_NOME"];
-
-			
-
-			$AVALI_SITUACAO = $Rs["AVALI_SITUACAO"];
-
-			$LANCA_STATUS = $Rs["LANCA_STATUS"];
-
-			$USUARIO = (trim($USUARIO)) ? $USUARIO : $_SESSION['sNome'];
-
-		}
-
-?>
+        if($AVALI_AREZ_DEFEIS_IDO !== NULL){
+          $sql = " SELECT DEFEIS_DESCRICAO FROM rar_defeito_subgrupo WHERE rar_defeito_subgrupo.DEFEIS_IDO = {$AVALI_AREZ_DEFEIS_IDO}";
+          $Stmt = mysql_query($sql);
+          $subgrupo = mysql_fetch_row($Stmt);
+        }
+        ?>
+          <table width="100%" border="0">
+             <tr>
+                <td width="18%"><strong>Remetente</strong></td>
+                <td align="left"><?=$USUARIO;?></td>
+                <td width="33%" colspan="2" align="right"><strong><?=$AVALI_AREZ_DATA;?></strong></td>
+             </tr>
+             <tr>
+                <td width="18%"><strong>Defeito Encontrado</strong></td>
+                <td align="left" colspan="3"><?=$grupo[0];?> / <?=$subgrupo[0];?></td>
+             </tr>
+             <tr class="">
+               <td class=""><strong>Detalhamento</strong></td>
+               <td colspan="3" class=""><span class="">
+                 <?=$AVALI_AREZ_DETALHE;?>
+               </span></td>
+             </tr>
+             <tr class="">
+               <td class=""><strong>Respons&aacute;vel</strong></td>
+               <td colspan="3"><span class="">
+                 Sicrano
+               </span></td>
+             </tr>
+            <tr>
+                <td><strong>Situa&ccedil;&atilde;o da reclama&ccedil;&atilde;o </strong></td>
+                <td colspan="5">
+                <?php
+                  switch ($AVALI_SITUACAO) {
+                    case 'P':
+                      echo "Procedente";
+                      break;
+                    case 'I':
+                      echo "Improcedente";
+                      break;
+                    case 'E':
+                      echo "Em an&aacute;lise";
+                      break;
+                    case 'C':
+                      echo "Conserto";
+                      break;
+                    case 'A':
+                      echo "Avaliado Fabricante";
+                      break;
+                  } ?>
+                </td>
+              </tr>
+          </table>
+        </td>
+       </tr>
+       <tr>
 
        <td colspan="5" class=""><table width="100%"  border="0">
 
@@ -687,7 +742,7 @@ $Sql =	"SELECT rar_avaliacao.*, rar_usuario.*, rar_lancamento.*, date_format(AVA
 
 		   <option value="">..Selecione Grupo</option>
 
-		<? 
+		<?
 
 			$Sql = " SELECT * ";
 
@@ -717,7 +772,7 @@ $Sql =	"SELECT rar_avaliacao.*, rar_usuario.*, rar_lancamento.*, date_format(AVA
 
 		   <option value="">..Selecione Subgrupo</option>
 
-		   <? 
+		   <?
 
 		   if ($AVALI_AREZ_DEFEIG_IDO != ""){
 
@@ -735,13 +790,11 @@ $Sql =	"SELECT rar_avaliacao.*, rar_usuario.*, rar_lancamento.*, date_format(AVA
 
 		   		<option value="<?=$Rs["DEFEIS_IDO"]?>"<?=(($AVALI_AREZ_DEFEIS_IDO == $Rs["DEFEIS_IDO"]) ? " Selected" : "")?>><?=$Rs["DEFEIS_DESCRICAO"]?></option>
 
-				<? } 
+				<? }
 
-			}
+			} ?>
 
-			?>
-
-		   </select>  
+		   </select>
 
 		   </td>
 
@@ -813,10 +866,10 @@ $Sql =	"SELECT rar_avaliacao.*, rar_usuario.*, rar_lancamento.*, date_format(AVA
 
     <input name="AVALI_SITUACAO" type="radio" value="E" <?=(($AVALI_SITUACAO == "E") ? "checked" : "")?> onClick="updateAvaliacaoByProcedente(false);">
 
-    Em an&aacute;lise 
+    Em an&aacute;lise
 
     <input name="AVALI_SITUACAO" type="radio" value="C" <?=(($AVALI_SITUACAO == "C") ? "checked" : "")?> onClick="updateAvaliacaoByProcedente(false);">
-Conserto 
+Conserto
 <input name="AVALI_SITUACAO" type="radio" value="F" <?=(($AVALI_SITUACAO == "F") ? "checked" : "")?> onClick="updateAvaliacaoByProcedente(false);">
 Avaliado fabricante </td>
 
@@ -852,7 +905,7 @@ Avaliado fabricante </td>
 
      <tr>
 
-       <td colspan="5"> 
+       <td colspan="5">
 
 	   <div align="center">
 
@@ -862,13 +915,13 @@ Avaliado fabricante </td>
 
 	   <a href="javascript:verificaForm(document.form,'S');">
 
-	   <img src="imagens/gravar_avancar.jpg" name="Image352" width="98" height="22" border="0" id="Image352">	   </a>
+	   <img src="imagens/gravar_avancar.jpg" name="Image352" width="98" height="22" border="0" id="Image352" />	   </a>
 
 	   <a href="javascript:voltar();"><img src="../img/bts/cancelar.jpg" name="Image361" border="0" id="Image361"></a><a onClick="abrir_janela_popup('imp_reclamacao.php?Id=<?=$Rar?>','foto','width=780,height=480,top=0,left=0, scrollbars=yes,status=yes,resizable=no,dependent=yes')" href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image3611','','imagens/imprimir2.jpg',1)"><img src="imagens/imprimir.jpg" name="Image3611" width="52" height="22" border="0" id="Image361"></a><a onClick="abrir_janela_popup('email_avaliacoes_realizadas.php?Referencia=<?=$Rar?>','prenota','width=500,height=450,top=0,left=0, scrollbars=yes,status=no,resizable=no,dependent=yes')" href="#"><img src="imagens/enviar.jpg" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="52" height="22" border="0"></a></div></td>
 
        </tr>
 
-     
+
 
    </table>
 
@@ -906,7 +959,7 @@ else
 
 	document.form.ITEM_VALOR_TOTAL.value = "R$ " + arredondaNumber(parseFloat(document.form.ITEM_VALOR_UNITARIO.value.substring(3).replace(",",".")) * parseInt(document.form.ITEM_QTDE.value),",",2,true);
 
-	
+
 
 function verificaForm(formObj, avanca) {
 
@@ -926,7 +979,7 @@ function verificaForm(formObj, avanca) {
 
 	}
 
-	
+
 
 	if (formObj.AVALI_AREZ_DETALHE.value == "" && formObj.AVALI_SITUACAO[1].checked) {
 
@@ -964,13 +1017,13 @@ function verificaForm(formObj, avanca) {
 
 		formObj.action = "pesq_avaliacao_pendenteok2.php?avanca=N";
 
-	}		
+	}
 
 	document.form.submit();
 
 }
 
-function updateDateNow(objCheck,objDate) { 
+function updateDateNow(objCheck,objDate) {
 
 	if (objCheck.checked) {
 
@@ -1004,7 +1057,7 @@ function voltar(){
 
 	history.go(-1);
 
-}	
+}
 
 
 

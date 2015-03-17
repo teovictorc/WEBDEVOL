@@ -1,10 +1,10 @@
-<? include("inc/conn.inc.php"); 
+<? include("inc/conn.inc.php");
 
 
 
 	verifyAcess("ARZ_AVALIPENDENTE","S");
 
-	
+
 
 	if ($_POST['AVALI_STAR_DEFEI_IDO'] == ""){
 
@@ -21,8 +21,26 @@
 	}
 
 
-
-	$Sql = "UPDATE rar_avaliacao SET ".
+	$Sql = "INSERT INTO rar_avaliacao (
+								AVALI_NUMRAR,
+								AVALI_AREZ_DATA,
+								AVALI_AREZ_ENCERRADO,
+								AVALI_AREZ_DETALHE,
+								AVALI_AREZ_USUAR_IDO,
+								AVALI_SITUACAO,
+								AVALI_AREZ_DEFEIG_IDO,
+								AVALI_AREZ_DEFEIS_IDO,
+						) VALUE (
+							'{$_POST['ID']}',
+							'".((trim($_POST['AVALI_AREZ_DATA'])) ? "'" .formatadata($_POST['AVALI_AREZ_DATA']). "'" : "NULL")."',
+							'{$_POST['AVALI_AREZ_ENCERRADO']}',
+							'{$_POST['AVALI_AREZ_DETALHE']}',
+							'{$_SESSION['sId']}',
+							'{$_POST['AVALI_SITUACAO']}',
+							'{$_POST['AVALI_AREZ_DEFEIG_IDO']}',
+							'{$_POST['AVALI_AREZ_DEFEIS_IDO']}'
+						)";
+	/**$Sql = "UPDATE rar_avaliacao SET ".
 
 			"AVALI_AREZ_DATA = " .((trim($_POST['AVALI_AREZ_DATA'])) ? "'" .formatadata($_POST['AVALI_AREZ_DATA']). "'" : "NULL"). " , ".
 
@@ -46,12 +64,9 @@
 
 			"AVALI_AREZ_DEFEIG_IDO = '" .$_POST['AVALI_AREZ_DEFEIG_IDO']. "', ".
 
-			"AVALI_AREZ_DEFEIS_IDO = '" .$_POST['AVALI_AREZ_DEFEIS_IDO']. "' ".			
+			"AVALI_AREZ_DEFEIS_IDO = '" .$_POST['AVALI_AREZ_DEFEIS_IDO']. "' ".
 
-			" WHERE AVALI_NUMRAR = '" .$_POST['ID']. "'";
-
-
-
+			" WHERE AVALI_NUMRAR = '" .$_POST['ID']. "'";*/
 	$Stmt = mysql_query($Sql);
 
 	if ($_POST['AVALI_SITUACAO'] == "E" || $_POST['AVALI_SITUACAO'] == "F" ){
@@ -60,19 +75,18 @@
 		$Situacao = 3;
 	}
 
-	$Sql = "UPDATE rar_lancamento SET LANCA_STATUS = '" .$Situacao. "' WHERE LANCA_NUMRAR = '" .$_POST['ID']. "'";
+	$Sql = "UPDATE rar_lancamento SET LANCA_STATUS = '" .$Situacao. "' WHERE LANCA_NUMRAR = '{$_POST['ID']}'";
 
 	$Stmt = mysql_query($Sql);
 
-	
 
-	$Sql = "select LANCA_CATEGORIA from rar_lancamento WHERE LANCA_NUMRAR = '" .$_POST['ID']. "'";
+	$Sql = "select LANCA_CATEGORIA from rar_lancamento WHERE LANCA_NUMRAR = '{$_POST['ID']}'";
 
 	$Stmt = mysql_query($Sql);
 
 	if($RsCat = mysql_fetch_assoc($Stmt)) {
 
-	
+
 
 		if ($_GET["avanca"] == "S"){
 
