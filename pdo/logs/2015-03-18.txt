@@ -1,0 +1,75 @@
+Time : 19:00:50
+SQLSTATE[HY000]: General error: 1364 Field 'num_rar' doesn't have a default value
+Raw SQL : INSERT INTO log_avaliacoes (created,usuario_id,token) VALUES (:created,:usuario_id,:token)
+
+Time : 18:54:06
+SQLSTATE[HY000]: General error: 1364 Field 'num_rar' doesn't have a default value
+Raw SQL : INSERT INTO log_avaliacoes (created,usuario_id,token) VALUES (:created,:usuario_id,:token)
+
+Time : 16:03:09
+SQLSTATE[HY000]: General error: 1366 Incorrect integer value: '' for column 'usuario_id' at row 1
+Raw SQL : INSERT INTO log_avaliacoes (created,usuario_id,token) VALUES (:created,:usuario_id,:token)
+
+Time : 16:02:39
+SQLSTATE[HY000]: General error: 1364 Field 'token' doesn't have a default value
+Raw SQL : INSERT INTO log_avaliacoes (created,usuario_id) VALUES (:created,:usuario_id)
+
+Time : 16:02:06
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'dbwebdevol.thiss' doesn't exist
+Raw SQL : INSERT INTO thiss (created,usuario_id) VALUES (:created,:usuario_id)
+
+Time : 15:55:13
+SQLSTATE[HY093]: Invalid parameter number: no parameters were bound
+Raw SQL : INSERT INTO log_avaliacoes (usuario_id, token, created) VALUES (:usuario_id, :token, :created)
+
+Time : 15:47:37
+SQLSTATE[HY093]: Invalid parameter number: no parameters were bound
+Raw SQL : INSERT INTO log_avaliacoes (usuario_id, token, created) VALUES (:usuario_id, :token, :created)
+
+Time : 15:45:48
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on '192.168.10.251' (10061)
+
+Time : 15:45:31
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on '192.168.10.251' (10061)
+
+Time : 15:45:20
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on '192.168.10.251' (10061)
+
+Time : 15:45:14
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on '192.168.10.251' (10061)
+
+Time : 15:45:07
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on '192.168.10.251' (10061)
+
+Time : 15:44:13
+SQLSTATE[HY093]: Invalid parameter number: no parameters were bound
+Raw SQL : INSERT INTO log_avaliacoes (usuario_id,token,created) VALUES (:usuario_id, :token, :created)
+
+Time : 15:43:39
+SQLSTATE[HY093]: Invalid parameter number: no parameters were bound
+Raw SQL : INSERT INTO log_avaliacoes (usuario_id,token,created) VALUES (:usuario_id, :token, :created)
+
+Time : 15:36:45
+SQLSTATE[HY093]: Invalid parameter number: no parameters were bound
+Raw SQL : INSERT INTO log_avaliacoes (usuario_id,token,created) VALUES (:usuario_id, :token, :created)
+
+Time : 15:02:53
+SQLSTATE[HY000] [2005] Unknown MySQL server host '192.168.10.251:7543' (11001)
+
+Time : 15:02:42
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on '192.168.10.251' (10061)
+
+Time : 15:01:16
+SQLSTATE[HY000] [2003] Can't connect to MySQL server on '192.168.10.251' (10061)
+
+Time : 15:00:51
+SQLSTATE[HY000] [2005] Unknown MySQL server host 'http://192.168.10.251:7543' (11001)
+
+Time : 15:00:47
+SQLSTATE[HY000] [2005] Unknown MySQL server host 'http:\\192.168.10.251:7543' (11001)
+
+Time : 15:00:07
+SQLSTATE[HY000] [2005] Unknown MySQL server host '192.168.10.251:7543' (11001)
+
+Time : 14:59:32
+SQLSTATE[HY000] [2005] Unknown MySQL server host '192.168.10.251:7543' (11001)
