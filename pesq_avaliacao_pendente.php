@@ -2,77 +2,83 @@
 include("inc/headerI.inc.php");
 include("pdo/Db.class.php");
 include("pdo/easyCRUD/LogAvaliacoes.class.php");
-$session = new LogAvaliacoes();
-$session->_writeAccess($_SESSION['sId'], $_GET['Id']);
+
 verifyAcess("ARZ_AVALIPENDENTE","S");
 $Sql = "SELECT round(I.item_valor,2) ITEM_VALOR,
-L.*,
-F.NOME AS FABRICA,
-I.ITEM_NUM33,I.ITEM_NUM34,I.ITEM_NUM35,I.ITEM_NUM36,I.ITEM_NUM37,I.ITEM_NUM38,I.ITEM_NUM39,I.ITEM_NUM40,
-I.ITEM_REFERENCIA,
-I.ITEM_COLECAO,
-I.ITEM_NF,
-I.ITEM_PAR,
-I.ITEM_QTDE,
-I.ITEM_FOTOPROD,
-I.ITEM_FOTOSOLA,
-I.ITEM_FOTODEFEITO,
-date_format(I.item_data,'%d/%m/%Y') AS DATA ,
-P.PESSOA,
-P.NOME,
-P.LOGRADOURO,
-P.BAIRRO,
-P.NM_MUNICIPIO,
-DS_RESUMIDA_ITEM DESCRICAO,
-datediff(L.lanca_dataabertura,I.item_data) DIAS,
-P.SG_UF
+       L.*,
+       F.NOME AS FABRICA,
+       I.ITEM_NUM33,
+       I.ITEM_NUM34,
+       I.ITEM_NUM35,
+       I.ITEM_NUM36,
+       I.ITEM_NUM37,
+       I.ITEM_NUM38,
+       I.ITEM_NUM39,
+       I.ITEM_NUM40,
+       I.ITEM_REFERENCIA,
+       I.ITEM_COLECAO,
+       I.ITEM_NF,
+       I.ITEM_PAR,
+       I.ITEM_QTDE,
+       I.ITEM_FOTOPROD,
+       I.ITEM_FOTOSOLA,
+       I.ITEM_FOTODEFEITO,
+       date_format(I.item_data,'%d/%m/%Y') AS DATA ,
+       P.PESSOA,
+       P.NOME,
+       P.LOGRADOURO,
+       P.BAIRRO,
+       P.NM_MUNICIPIO,
+       DS_RESUMIDA_ITEM DESCRICAO,
+       datediff(L.lanca_dataabertura,I.item_data) DIAS,
+       P.SG_UF
 FROM pessoa P,
-rar_lancamento L,
-pessoa F,
-rar_item I,
-item_material IM
+     rar_lancamento L,
+     pessoa F,
+     rar_item I,
+     item_material IM
 WHERE L.LANCA_FABRI_IDO = F.PESSOA
-AND L.lanca_pessoa = P.PESSOA
-AND I.item_numrar = L.lanca_numrar
-AND I.item_REFERENCIA = IM.cd_item_material
-AND L.LANCA_NUMRAR = '{$_GET['Id']}'";
+  AND L.lanca_pessoa = P.PESSOA
+  AND I.item_numrar = L.lanca_numrar
+  AND I.item_REFERENCIA = IM.cd_item_material
+  AND L.LANCA_NUMRAR = '{$_GET['Id']}'";
 // die($Sql);
 $Stmt = mysql_query($Sql);
 if (!$Rs = mysql_fetch_assoc($Stmt)){
-die("<script>document.location.href = 'pesq_avaliacoes_pendentes.php';</script>");
+  die("<script>document.location.href = 'pesq_avaliacoes_pendentes.php';</script>");
 }else{
-$Descricao = $Rs["DESCRICAO"];
-if ($Rs["LANCA_CATEGORIA"] == "1"){
-$Categoria = "sapato.jpg";
+  $Descricao = $Rs["DESCRICAO"];
+  if ($Rs["LANCA_CATEGORIA"] == "1"){
+    $Categoria = "sapato.jpg";
 //$Descricao = "Calçado";
-$Foto1 =  "Foto do produto";
-$Foto2 =  "Foto da sola";
-$Foto3 =  "Foto do defeito";
-}elseif ($Rs["LANCA_CATEGORIA"] == "2"){
-$Categoria = "bolsa.jpg";
+    $Foto1 =  "Foto do produto";
+    $Foto2 =  "Foto da sola";
+    $Foto3 =  "Foto do defeito";
+  }elseif ($Rs["LANCA_CATEGORIA"] == "2"){
+    $Categoria = "bolsa.jpg";
 //$Descricao = "Bolsa";
-$Foto1 =  "Foto do produto - frente";
-$Foto2 =  "Foto do produto - verso";
-$Foto3 =  "Foto do defeito";
-}elseif ($Rs["LANCA_CATEGORIA"] == "3"){
-$Categoria = "cinto.jpg";
+    $Foto1 =  "Foto do produto - frente";
+    $Foto2 =  "Foto do produto - verso";
+    $Foto3 =  "Foto do defeito";
+  }elseif ($Rs["LANCA_CATEGORIA"] == "3"){
+    $Categoria = "cinto.jpg";
 //$Descricao = "Cinto";
-$Foto1 =  "Foto do produto - frente";
-$Foto2 =  "Foto do produto - verso";
-$Foto3 =  "Foto do defeito";
-}elseif ($Rs["LANCA_CATEGORIA"] == "4"){
-$Categoria = "carteira.jpg";
+    $Foto1 =  "Foto do produto - frente";
+    $Foto2 =  "Foto do produto - verso";
+    $Foto3 =  "Foto do defeito";
+  }elseif ($Rs["LANCA_CATEGORIA"] == "4"){
+    $Categoria = "carteira.jpg";
 //$Descricao = "Carteira";
-$Foto1 =  "Foto do produto - frente";
-$Foto2 =  "Foto do produto - verso";
-$Foto3 =  "Foto do defeito";
-}
-$Tempo = intval($Rs["DIAS"]);
-$Meses = $Rs["DIAS"]/30;
-$Dias = ($Meses - intval($Meses)) * 30;
-$Meses = intval($Meses);
-$Tempo = $Meses." meses e ".$Dias." dias";
-$Rar = $_GET['Id'];
+    $Foto1 =  "Foto do produto - frente";
+    $Foto2 =  "Foto do produto - verso";
+    $Foto3 =  "Foto do defeito";
+  }
+  $Tempo = intval($Rs["DIAS"]);
+  $Meses = $Rs["DIAS"]/30;
+  $Dias = ($Meses - intval($Meses)) * 30;
+  $Meses = intval($Meses);
+  $Tempo = $Meses." meses e ".$Dias." dias";
+  $Rar = $_GET['Id'];
 }
 ?>
 <script>
@@ -103,11 +109,7 @@ var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.o
     </script>
     <link href="wfa.css" rel="stylesheet" type="text/css">
     <body onLoad="MM_preloadImages('imagens/cancelar2.jpg','imagens/imprimir2.jpg')">
-      <form name="form" method="post" action="">
-        <input type="hidden" name="ID" value="<?=$_GET['Id']?>">
-        <input name="DT_INICIAL" type="hidden" id="DT_INICIAL" value="<?=$_GET['DT_INICIAL']?>">
-        <input name="DT_FINAL" type="hidden" id="DT_FINAL" value="<?=$_GET['DT_FINAL']?>">
-        <table>
+        <table class="tab_conteudo">
           <tr>
             <td height="100%" valign="top" class="tab_conteudo">
               <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -115,6 +117,10 @@ var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.o
                   <td height="32" class="tab_titulo"><h4>Avalia&ccedil;&atilde;o de reclama&ccedil;&atilde;o</h4></td>
                 </tr>
               </table>
+              <form name="form" method="post" action="">
+                <input type="hidden" name="ID" value="<?=$_GET['Id']?>">
+                <input name="DT_INICIAL" type="hidden" id="DT_INICIAL" value="<?=$_GET['DT_INICIAL']?>">
+                <input name="DT_FINAL" type="hidden" id="DT_FINAL" value="<?=$_GET['DT_FINAL']?>">
               <table width="100%"  border="0" class="tab_inclusao">
                 <tr>
                   <td height="10" class=""><strong>Reclama&ccedil;&atilde;o</strong></td>
@@ -422,120 +428,146 @@ var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.o
               </tr>
               <tr>
                 <td colspan="5">
-                  <div align="center">
-                    <a href="javascript:verificaForm(document.form,'N');">
-                    <img src="../img/bts/gravar.jpg" name="Image351" width="52" height="22" border="0" id="Image351">    </a>
-                    <a href="javascript:verificaForm(document.form,'S');">
-                    <img src="imagens/gravar_avancar.jpg" name="Image352" width="98" height="22" border="0" id="Image352" />     </a>
-                    <a href="javascript:voltar();"><img src="../img/bts/cancelar.jpg" name="Image361" border="0" id="Image361"></a><a onClick="abrir_janela_popup('imp_reclamacao.php?Id=<?=$Rar?>','foto','width=780,height=480,top=0,left=0, scrollbars=yes,status=yes,resizable=no,dependent=yes')" href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image3611','','imagens/imprimir2.jpg',1)"><img src="imagens/imprimir.jpg" name="Image3611" width="52" height="22" border="0" id="Image361"></a><a onClick="abrir_janela_popup('email_avaliacoes_realizadas.php?Referencia=<?=$Rar?>','prenota','width=500,height=450,top=0,left=0, scrollbars=yes,status=no,resizable=no,dependent=yes')" href="#"><img src="imagens/enviar.jpg" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="52" height="22" border="0"></a></div>
-                  </tr>
+                    <div align="center">
+                      <a href="javascript:verificaForm(document.form,'N');">
+                      <img src="../img/bts/gravar.jpg" name="Image351" width="52" height="22" border="0" id="Image351"></a>
+                      <a href="javascript:verificaForm(document.form,'S');">
+                      <img src="imagens/gravar_avancar.jpg" name="Image352" width="98" height="22" border="0" id="Image352" /></a>
+                      <a href="javascript:voltar();"><img src="../img/bts/cancelar.jpg" name="Image361" border="0" id="Image361"></a>
+                      <a onClick="abrir_janela_popup('imp_reclamacao.php?Id=<?=$Rar?>','foto','width=780,height=480,top=0,left=0, scrollbars=yes,status=yes,resizable=no,dependent=yes')" href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image3611','','imagens/imprimir2.jpg',1)"><img src="imagens/imprimir.jpg" name="Image3611" width="52" height="22" border="0" id="Image361"></a><a onClick="abrir_janela_popup('email_avaliacoes_realizadas.php?Referencia=<?=$Rar?>','prenota','width=500,height=450,top=0,left=0, scrollbars=yes,status=no,resizable=no,dependent=yes')" href="#"><img src="imagens/enviar.jpg" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="52" height="22" border="0"></a>
+                    </div>
                 </td>
                 <td>&nbsp;</td>
               </tr>
-              <!-- Log de Mudanças -->
+            </table>
+          </form>
+<!-- Log de Mudanças -->
+          <form action="saveLogMudancas.php" method="post" name="formLogMudancas" id="formLogMudancas">
+            <input type="hidden" name="situacao" value="<?=$AVALI_SITUACAO?>" />
+            <input type="hidden" name="num_rar" value="<?=$_GET['Id']?>" />
+            <table class="tab_inclusao" style="width:100%">
               <tr>
-                <td colspan="5" class="tab_titulo"><strong>Log de Mudan&ccedil;as</strong></td>
-              </tr>
-              <tr>
-                <td colspan="5">
-                    <table>
-                    <?php
-                      $log = new LogAvaliacoes();
-                      $logs = $log->findByNumRar($_GET['Id']);
-                      $count_acessos = 0;
-                      foreach ($logs as $key => $value):
-                    ?>
-                      <tr>
-                        <td width="25%"><h5><?=$value['USUAR_NOME']?></h5></td>
-                        <td width="60%"><?=$log->informacaoLog($value['type'],$value['texto'])?></td>
-                        <td width="15%"><?=date("d/m/Y H:i:s", strtotime($value['updated']));?></td>
-                      </tr>
-                    <?php
-                    if($value['type'] == 1): $count_acessos++; else: $count_acessos = 0; endif;
-                    endforeach; ?>
-                    </table>
+                <td>
+                  <table style="width: 100%;">
+                    <tr>
+                      <td colspan="2" style="width:25%" class="tab_titulo"><strong>Log de Mudan&ccedil;as</strong></td>
+                      <td colspan="2"><a href="acionarFabrica.php" id="acionarFabrica">Acionar Fábrica</a></td>
+                      <td colspan="2"><a href="notificarFuncionarios.php" id="notificarFuncionarios">Notificar Funcionários</a></td>
+                    </tr>
+                    <tr>
+                      <td colspan="5">
+                        <table>
+                          <?php
+                            $log = new LogAvaliacoes();
+                            $logs = $log->findByNumRar($_GET['Id']);
+                            $count_acessos = 0;
+                            foreach ($logs as $key => $value):
+                          ?>
+                            <tr style="border-bottom:1px solid gray !important; border-top:1px solid gray !important; color: #333;<?php echo ($value['type'] == 1) ? "background-color:#F2DEDE":"" ?>">
+                              <td width="25%"><h5><?=$value['USUAR_NOME']?></h5></td>
+                              <td width="60%"><?=$log->informacaoLog($value['type'],$value['texto'])?></td>
+                              <td width="15%"><?=date("d/m/Y H:i:s", strtotime($value['updated']));?></td>
+                            </tr>
+                          <?php
+                          if($value['type'] == 1): $count_acessos++; else: $count_acessos = 0; endif;
+                          endforeach; ?>
+                          <tr>
+                            <td style="width: 25%"><strong>Coment&aacute;rio</strong></td>
+                            <td><textarea name="comentario" id="" style="width: 460px" rows="5"></textarea></td>
+                            <td align="center"><input type="submit" value="Enviar" /></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
-                <!--/ END - Log de Mudanças -->
-                <table width="100%" border="0">
-                  <tr>
-                    <td colspan="5">
-                      <table width="100%" border="0">
-                        <tr>
-                          <td height="100%" bgcolor="#333333" class="rodape"><?=$RodapeDesenvolvedor?></td>
-                          <td bgcolor="#333333">&nbsp;</td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>
-                </table>
-              </form>
             </table>
-            <script type="text/javascript" src="js/jExpand.js"></script>
-            <script>
-              jQuery(document).ready(function($){
-                $('.acesso_group').jExpand();
-              });
-            </script>
-            <script language="javascript" type="text/javascript">
-            <!--
-                                if (document.form.ITEM_QTDE.value == "" || document.form.ITEM_VALOR_UNITARIO.value == "")
-                                  document.form.ITEM_VALOR_TOTAL.value = "R$ 0,00";
-                                else
-                                  document.form.ITEM_VALOR_TOTAL.value = "R$ " + arredondaNumber(parseFloat(document.form.ITEM_VALOR_UNITARIO.value.substring(3).replace(",",".")) * parseInt(document.form.ITEM_QTDE.value),",",2,true);
-                                function verificaForm(formObj, avanca) {
-                                  if (formObj.AVALI_AREZ_DEFEIG_IDO.value == "") {
-                                    alert("Preencha o campo \"Grupo - Defeito encontrado\"");
-                                    return;
-                                  }
-                                  if (formObj.AVALI_AREZ_DEFEIS_IDO.value == "") {
-                                    alert("Preencha o campo \"Subgrupo - Defeito encontrado\"");
-                                    return;
-                                  }
-                                  if (formObj.AVALI_AREZ_DETALHE.value == "" && formObj.AVALI_SITUACAO[1].checked) {
-                                    alert("Preencha o campo \"Detalhamento\"");
-                                    return;
-                                  }
-                                  if (!JSUtilValidaData(formObj.AVALI_AREZ_DATA.value,false)) {
-                                    alert("Preencha o campo \"Data da avaliação\"");
-                                    return;
-                                  }
-                                  if (!formObj.AVALI_SITUACAO[0].checked && !formObj.AVALI_SITUACAO[1].checked && !formObj.AVALI_SITUACAO[2].checked && !formObj.AVALI_SITUACAO[3].checked && !formObj.AVALI_SITUACAO[4].checked) {
-                                    alert("Preencha o campo \"Situação da reclamação\"");
-                                    return;
-                                  }
-                                  formObj.AVALI_AREZ_DATA.disabled = false;
-                                  if (avanca == 'S'){
-                                    formObj.action = "pesq_avaliacao_pendenteok2.php?avanca=S";
-                                  }else{
-                                    formObj.action = "pesq_avaliacao_pendenteok2.php?avanca=N";
-                                  }
-                                  document.form.submit();
-                                }
-                                function updateDateNow(objCheck,objDate) {
-                                  if (objCheck.checked) {
-                                    var dateNow = new Date();
-                                    var mes = dateNow.getMonth() + 1;
-                                    //substituido pela linha abaixo em 21/11/2005
-                                    //motivo: o JAVASCRIPT começa os meses no 1
-                                    //document.form.elements[objDate].value = ((dateNow.getDate() < 10) ? "0" : "") + dateNow.getDate() + "/" + ((dateNow.getMonth() < 10)+1 ? "0" : "") + dateNow.getMonth() + "/" + dateNow.getFullYear();
-                                    document.form.elements[objDate].value = ((dateNow.getDate() < 10) ? "0" : "") + dateNow.getDate() + "/" + ((mes < 10) ? "0" : "") + mes + "/" + dateNow.getFullYear();
-                                    document.form.elements[objDate].disabled = true;
-                                  }else{
-                                    document.form.elements[objDate].disabled = false;
-                                    document.form.elements[objDate].value = "";
-                                  }
-                                }
-                                function voltar(){
-                                  history.go(-1);
-                                }
-                                function updateAvaliacaoByProcedente(checkbox) {
-                                  document.form.AVALI_AREZ_ENCERRADO.checked = checkbox;
-                                  updateDateNow(document.form.AVALI_AREZ_ENCERRADO,'AVALI_AREZ_DATA');
-                                }
-                                function updateAvaliacao() {
-                                  document.form.AVALI_AREZ_ENCERRADO.checked = (document.form.LANCA_STATUS.value == "3") ? true : false;
-                                  updateDateNow(document.form.AVALI_AREZ_ENCERRADO,'AVALI_AREZ_DATA');
-                                }
-            //-->
-            </script>
+          </form>
+    </td>
+  </tr>
+</table>
+<!--/ END - Log de Mudanças -->
+<table width="100%" border="0">
+  <tr>
+    <td colspan="5">
+      <table width="100%" border="0">
+        <tr>
+          <td height="100%" bgcolor="#333333" class="rodape"><?=$RodapeDesenvolvedor?></td>
+          <td bgcolor="#333333">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<div id="dialog-confirm" title="Acionar Fábrica">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Deseja realmente acionar a fábrica?</p>
+</div>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+    if (document.form.ITEM_QTDE.value == "" || document.form.ITEM_VALOR_UNITARIO.value == "")
+      document.form.ITEM_VALOR_TOTAL.value = "R$ 0,00";
+    else
+      document.form.ITEM_VALOR_TOTAL.value = "R$ " + arredondaNumber(parseFloat(document.form.ITEM_VALOR_UNITARIO.value.substring(3).replace(",",".")) * parseInt(document.form.ITEM_QTDE.value),",",2,true);
+    function verificaForm(formObj, avanca) {
+      if (formObj.AVALI_AREZ_DEFEIG_IDO.value == "") {
+        alert("Preencha o campo \"Grupo - Defeito encontrado\"");
+        return;
+      }
+      if (formObj.AVALI_AREZ_DEFEIS_IDO.value == "") {
+        alert("Preencha o campo \"Subgrupo - Defeito encontrado\"");
+        return;
+      }
+      if (formObj.AVALI_AREZ_DETALHE.value == "" && formObj.AVALI_SITUACAO[1].checked) {
+        alert("Preencha o campo \"Detalhamento\"");
+        return;
+      }
+      if (!JSUtilValidaData(formObj.AVALI_AREZ_DATA.value,false)) {
+        alert("Preencha o campo \"Data da avaliação\"");
+        return;
+      }
+      if (!formObj.AVALI_SITUACAO[0].checked && !formObj.AVALI_SITUACAO[1].checked && !formObj.AVALI_SITUACAO[2].checked && !formObj.AVALI_SITUACAO[3].checked && !formObj.AVALI_SITUACAO[4].checked) {
+        alert("Preencha o campo \"Situação da reclamação\"");
+        return;
+      }
+      formObj.AVALI_AREZ_DATA.disabled = false;
+      if (avanca == 'S'){
+        formObj.action = "pesq_avaliacao_pendenteok2.php?avanca=S";
+      }else{
+        formObj.action = "pesq_avaliacao_pendenteok2.php?avanca=N";
+      }
+      document.form.submit();
+    }
+    function updateDateNow(objCheck,objDate) {
+      if (objCheck.checked) {
+        var dateNow = new Date();
+        var mes = dateNow.getMonth() + 1;
+        //substituido pela linha abaixo em 21/11/2005
+        //motivo: o JAVASCRIPT começa os meses no 1
+        //document.form.elements[objDate].value = ((dateNow.getDate() < 10) ? "0" : "") + dateNow.getDate() + "/" + ((dateNow.getMonth() < 10)+1 ? "0" : "") + dateNow.getMonth() + "/" + dateNow.getFullYear();
+        document.form.elements[objDate].value = ((dateNow.getDate() < 10) ? "0" : "") + dateNow.getDate() + "/" + ((mes < 10) ? "0" : "") + mes + "/" + dateNow.getFullYear();
+        document.form.elements[objDate].disabled = true;
+      }else{
+        document.form.elements[objDate].disabled = false;
+        document.form.elements[objDate].value = "";
+      }
+    }
+    function voltar(){
+      history.go(-1);
+    }
+    function updateAvaliacaoByProcedente(checkbox) {
+      document.form.AVALI_AREZ_ENCERRADO.checked = checkbox;
+      updateDateNow(document.form.AVALI_AREZ_ENCERRADO,'AVALI_AREZ_DATA');
+    }
+    function updateAvaliacao() {
+      document.form.AVALI_AREZ_ENCERRADO.checked = (document.form.LANCA_STATUS.value == "3") ? true : false;
+      updateDateNow(document.form.AVALI_AREZ_ENCERRADO,'AVALI_AREZ_DATA');
+    }
+//-->
+</script>
+<?php
+$session = new LogAvaliacoes();
+$session->_writeAccess($_SESSION['sId'], $_GET['Id']);
+$_SESSION['NUM_RAR'] = $_GET['Id'];
+?>
