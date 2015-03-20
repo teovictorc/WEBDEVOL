@@ -132,7 +132,20 @@ class Crud {
 					user.USUAR_NOME
 					FROM log_avaliacoes log
 					JOIN rar_usuario user ON (log.usuario_id = user.USUAR_IDO)
-					WHERE log.num_rar = '{$num_rar}' ORDER BY log.created DESC LIMIT 5";
+					WHERE log.num_rar = '{$num_rar}' ORDER BY log.created DESC";
+	  // Create time stamp
+		return $this->db->query($sql);
+	}
+
+	/**
+	 * Write
+	 */
+	public function findByNumRarFiles($num_rar){
+		$sql = "SELECT log.*,
+					user.USUAR_NOME
+					FROM log_avaliacoes log
+					JOIN rar_usuario user ON (log.usuario_id = user.USUAR_IDO)
+					WHERE log.num_rar = '{$num_rar}' AND log.filename <> '' ORDER BY log.created DESC";
 	  // Create time stamp
 		return $this->db->query($sql);
 	}

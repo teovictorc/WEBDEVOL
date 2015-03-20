@@ -50,7 +50,7 @@
 					# code...
 					break;
 			}
-			return $texto;
+			return htmlentities(utf8_decode($texto));
 		}else{
 			return NULL;
 		}

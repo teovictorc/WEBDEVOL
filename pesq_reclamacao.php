@@ -485,7 +485,7 @@ Bolsa</td>
 
                  <div align="left">
                    <input name="fileProd" type="file" class="campo_texto" id="fileProd" onchange="LoadImagemProduto();" size="15">
-				   <input type="hidden" name="fileProdNome" id="fileProdNome" value="" />
+				           <input type="hidden" name="fileProdNome" id="fileProdNome" value="" />
                  </div></td>
 
                </tr>
@@ -820,7 +820,7 @@ function ConsistNotaFiscal() {
 
 	if (document.form.LANCA_PESSOA.value == "" || document.form.ITEM_REFERENCIA.value == "")
 
-		alert("Os campos \"Cliente, Refer�ncia\" devem estar preechidos\npara realizar esta opera��o");
+		alert("Os campos \"Cliente, Referência\" devem estar preechidos\npara realizar esta operação");
 
 	else
 
@@ -857,12 +857,8 @@ function ConsistNotaFiscal() {
 		if (document.form.LANCA_CATEGORIA[7].checked){
 			categoria = document.form.LANCA_CATEGORIA[7].value;
 		}
-		//alert('autoCompletar.php?cmd=p_r&NF=' + escape(document.form.ITEM_NF.value) + '&PESSOA=' + escape(document.form.LANCA_PESSOA.value) + '&REFERENCIA=' + escape(document.form.ITEM_REFERENCIA.value) + '&NOMECLIENTE=' + escape(document.form.NOME.value) + '&Categoria='+escape(categoria));
-                var url = 'autoCompletar.php?cmd=p_r&NF=' + escape(document.form.ITEM_NF.value) + '&PESSOA=' + escape(document.form.LANCA_PESSOA.value) + '&REFERENCIA=' + escape(document.form.ITEM_REFERENCIA.value) + '&NOMECLIENTE=' + escape(document.form.NOME.value) + '&Categoria='+escape(categoria);
+    var url = 'autoCompletar.php?cmd=p_r&NF=' + escape(document.form.ITEM_NF.value) + '&PESSOA=' + escape(document.form.LANCA_PESSOA.value) + '&REFERENCIA=' + escape(document.form.ITEM_REFERENCIA.value) + '&NOMECLIENTE=' + escape(document.form.NOME.value) + '&Categoria='+escape(categoria);
 		JSUtilRequest(url);
-
-
-
 }
 
 function updateFabrica() {

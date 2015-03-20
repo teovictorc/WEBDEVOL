@@ -81,6 +81,7 @@ if (!$Rs = mysql_fetch_assoc($Stmt)){
   $Rar = $_GET['Id'];
 }
 ?>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
 <script>
 <!--
 function atualiza(Grupo,Subg) {
@@ -445,38 +446,64 @@ var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.o
           <form action="saveLogMudancas.php" method="post" name="formLogMudancas" id="formLogMudancas">
             <input type="hidden" name="situacao" value="<?=$AVALI_SITUACAO?>" />
             <input type="hidden" name="num_rar" value="<?=$_GET['Id']?>" />
-            <table class="tab_inclusao" style="width:100%">
+            <table class="tab_inclusao" style="width: 650px;">
               <tr>
                 <td>
                   <table style="width: 100%;">
                     <tr>
-                      <td colspan="2" style="width:25%" class="tab_titulo"><strong>Log de Mudan&ccedil;as</strong></td>
-                      <td colspan="2"><a href="acionarFabrica.php" id="acionarFabrica">Acionar Fábrica</a></td>
-                      <td colspan="2"><a href="notificarFuncionarios.php" id="notificarFuncionarios">Notificar Funcionários</a></td>
+                      <td colspan="4" style="width:85%" class="tab_titulo"><strong>Log de An&aacute;lises</strong></td>
+                      <td colspan="2" align="right" class="tab_titulo">
+                        <a onClick="abrir_janela_popup('email_avaliacoes_realizadas.php?Referencia=<?=$Rar?>','prenota','width=400,height=800,top=0,left=0, scrollbars=yes,status=no,resizable=yes,dependent=yes')" href="#">
+                          <img src="imagens/email.gif" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="20" height="20" border="0" />
+                        </a>
+                        <a onClick="abrir_janela_popup('fileupload.php?Id=<?=$Rar?>','prenota','width=620,height=800,top=0,left=0, scrollbars=yes,status=no,resizable=yes,dependent=yes')" href="#">
+                          <img src="img/bts/pdf-icon-32x32.png" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="20" height="20" border="0" />
+                        </a>
+                        <!-- <a href="javascript:notificarUsuarios();" id="notificarFuncionarios">Notificar Funcionários</a></td> -->
                     </tr>
                     <tr>
                       <td colspan="5">
-                        <table>
+                      <div style="width:650px;">
+                      <select id="typeFilter">
+                        <option value="">Todos</option>
+                        <option value="1">Acessos</option>
+                        <option value="2">Interatividades</option>
+                      </select>
+                        <table id='tableLogMudancas'>
+                          <thead>
+                            <tr>
+                              <th>Nome do Usu&aacute;rio</th>
+                              <th></th>
+                              <th>Mensagem</th>
+                              <th>Data</th>
+                            </tr>
+                          </thead>
+                          <tbody>
                           <?php
                             $log = new LogAvaliacoes();
                             $logs = $log->findByNumRar($_GET['Id']);
                             $count_acessos = 0;
                             foreach ($logs as $key => $value):
                           ?>
-                            <tr style="border-bottom:1px solid gray !important; border-top:1px solid gray !important; color: #333;<?php echo ($value['type'] == 1) ? "background-color:#F2DEDE":"" ?>">
-                              <td width="25%"><h5><?=$value['USUAR_NOME']?></h5></td>
+                            <tr style="<?php echo ($value['type'] == 1) ? "background-color:#FCF8E3":"" ?>">
+                              <td width="25%"><strong><?=$value['USUAR_NOME']?></strong></td>
+                              <td width="0"><?=$value['type']?></td>
                               <td width="60%"><?=$log->informacaoLog($value['type'],$value['texto'])?></td>
                               <td width="15%"><?=date("d/m/Y H:i:s", strtotime($value['updated']));?></td>
                             </tr>
                           <?php
                           if($value['type'] == 1): $count_acessos++; else: $count_acessos = 0; endif;
                           endforeach; ?>
-                          <tr>
-                            <td style="width: 25%"><strong>Coment&aacute;rio</strong></td>
-                            <td><textarea name="comentario" id="" style="width: 460px" rows="5"></textarea></td>
-                            <td align="center"><input type="submit" value="Enviar" /></td>
-                          </tr>
+                          </tbody>
                         </table>
+                      </div>
+                      <table>
+                        <tr>
+                          <td style="width: 25%"><strong>Coment&aacute;rio</strong></td>
+                          <td><textarea name="comentario" id="" style="width: 460px" rows="5"></textarea></td>
+                          <td align="center"><input type="submit" value="Enviar" /></td>
+                        </tr>
+                      </table>
                       </td>
                     </tr>
                   </table>
@@ -500,12 +527,36 @@ var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.o
     </td>
   </tr>
 </table>
-<div id="dialog-confirm" title="Acionar Fábrica">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Deseja realmente acionar a fábrica?</p>
-</div>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="menu/menu_data.php"></script>
 <script language="javascript" type="text/javascript">
 <!--
+    jQuery(document).ready(function($){
+      var table = $('#tableLogMudancas').DataTable( {
+        "scrollY":        "200px",
+        "scrollCollapse": true,
+        "paging"        : false,
+        "order"         : [[ 3, "desc" ]],
+        "columnDefs": [ {
+            "targets": [ 0 ],
+            "orderable": false
+        }, {
+            "targets": [ 1 ],
+            "orderable": false,
+            "visible": false,
+            "searchable": true
+        }, {
+            "targets": [ 2 ],
+            "orderable": false
+        }, {
+            "targets": [ 3 ],
+        } ]
+      });
+      $('#typeFilter').on( 'change', function () {
+        table.columns( 1 ).search( this.value ).draw();
+      });
+    });
+
     if (document.form.ITEM_QTDE.value == "" || document.form.ITEM_VALOR_UNITARIO.value == "")
       document.form.ITEM_VALOR_TOTAL.value = "R$ 0,00";
     else

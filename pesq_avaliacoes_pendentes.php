@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
-<?php
-//include("inc/headerI.inc.php");
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<?php include("inc/conn.inc.php"); ?>
+    <title><?=$NomeSistema?></title>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+    <link href="wfa.css" rel="stylesheet" type="text/css">
+    <link href="css/global.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
 
-include("inc/conn.inc.php");
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+</head>
+<?php
 
 function base_url(){
  return "http://" . $_SERVER['SERVER_NAME']."/WEBDEVOl/principal.php";
@@ -11,43 +20,40 @@ function base_url(){
 
 if($_SESSION['Menu'] == 2){
 
-	$ImagemTopo = "wfa_arezzo_r4_c4_s.jpg";
+  $ImagemTopo = "wfa_arezzo_r4_c4_s.jpg";
 
 }elseif($_SESSION['Menu'] == 3){
 
-	$ImagemTopo = "wfa_arezzo_r4_c4_tm.jpg";
+  $ImagemTopo = "wfa_arezzo_r4_c4_tm.jpg";
 
 }elseif($_SESSION['Menu'] == 4){
 
-	$ImagemTopo = "wfa_arezzo_r4_c4_r.jpg";
+  $ImagemTopo = "wfa_arezzo_r4_c4_r.jpg";
 
 }elseif($_SESSION['Menu'] == 5){
 
-	$ImagemTopo = "wfa_arezzo_r4_c4_iaf.jpg";
+  $ImagemTopo = "wfa_arezzo_r4_c4_iaf.jpg";
 
 }elseif($_SESSION['Menu'] == 6){
 
-	$ImagemTopo = "wfa_arezzo_r4_c4_pesq.jpg";
+  $ImagemTopo = "wfa_arezzo_r4_c4_pesq.jpg";
 
 }else{
 
-	$ImagemTopo = "wfa_arezzo_r4_c4_t.jpg";
+  $ImagemTopo = "wfa_arezzo_r4_c4_t.jpg";
 
 }
 
 $_GET["Categoria"] = "1,2,3,4,5,6,7,8,9,10,11";
 verifyAcess("ARZ_AVALIPENDENTE","S");
 
-?>
-<?php
-
 if ($_POST["Categoria"] != ""){
-	$Categoria = $_POST['Categoria'];
+  $Categoria = $_POST['Categoria'];
 }
 
 $Texto = "Todos os produtos";
 function situacao($value) {
-	switch($value) {
+  switch($value) {
             case "P":
                 return "Improcedente"; //somente est� trocado para exibicao das imagens
                 break;
@@ -65,22 +71,9 @@ function situacao($value) {
                 break;
             default:
                 return "";
-	}
-}
-?>
-<head>
+  }
+} ?>
 
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-
-    <title><?=$NomeSistema?></title>
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
-    <link href="wfa.css" rel="stylesheet" type="text/css">
-    <link href="css/global.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-</head>
 <body>
 <div id="Layer1" style="position:absolute; left:249px; top:57px; width:69px; height:29px; z-index:1; visibility: hidden;"><a href=http://www.milonic.com/styleproperties.php class="style1">http://www.milonic.com/styleproperties.php</a></div>
 
@@ -168,25 +161,25 @@ function situacao($value) {
           <thead>
             <tr>
               <td align="center"></td>
-              <td align="center">N&ordm; RAR</td>
-              <td align="center">Nº Categoria</td>
-              <td align="center">Categoria</td>
-              <td align="center">N&ordm; An&aacute;lise</td>
-              <td align="center">Data Abertura</td>
-              <td align="center">Data Avalia&ccedil;&atilde;o</td>
-              <td align="center">Qtde Produtos </td>
-              <td align="center">Status</td>
-              <td align="center">Status</td>
-              <td align="left">Cliente</td>
-              <td>Fabricante</td>
+                <td align="center">Nº Categoria</td>
+                <td align="center">Categoria</td>
+                <td align="center">N&ordm; RAR</td>
+                <td align="center">N&ordm; An&aacute;lise</td>
+                <td align="center">Data Abertura</td>
+                <td align="center">Data Avalia&ccedil;&atilde;o</td>
+                <td align="center">Qtde Produtos </td>
+                <td align="center">Status</td>
+                <td align="center">Status</td>
+                <td align="left">Cliente</td>
+                <td>Fabricante</td>
             </tr>
           </thead>
           <tfoot>
             <tr>
                 <td align="center"></td>
-                <td align="center">N&ordm; RAR</td>
                 <td align="center">Nº Categoria</td>
                 <td align="center">Categoria</td>
+                <td align="center">N&ordm; RAR</td>
                 <td align="center">N&ordm; An&aacute;lise</td>
                 <td align="center">Data Abertura</td>
                 <td align="center">Data Avalia&ccedil;&atilde;o</td>
@@ -208,8 +201,8 @@ function situacao($value) {
                "       AND (A.avali_numrar = L.lanca_numrar or A.avali_numrar is null) ".
                "       AND LANCA_STATUS = '1' ".
                "       AND UC.USUCLI_PESSOA = L.LANCA_PESSOA ".
-               "       AND I.item_REFERENCIA = IM.cd_item_material".
-               "       AND UC.USUCLI_USUAR_IDO = '" .$_SESSION['sId']. "'";
+               "       AND I.item_REFERENCIA = IM.cd_item_material";
+               //"       AND UC.USUCLI_USUAR_IDO = '" .$_SESSION['sId']. "'";
 	if (trim($_GET['LANCA_CATEGORIA'])) {
             $Sql.= "AND L.LANCA_CATEGORIA = '" .$_GET['LANCA_CATEGORIA']. "' ";
 	}
@@ -234,11 +227,11 @@ function situacao($value) {
      ?>
       <tr>
           <td align="center"><a onClick="abrir_janela_popup('email_avaliacoes_realizadas.php?Referencia=<?=$row["LANCA_NUMRAR"]?>','prenota','width=400,height=400,top=0,left=0, scrollbars=no,status=no,resizable=no,dependent=yes')" href="#"><img src="imagens/email.gif" alt="Encaminhar reclama&ccedil;&atilde;o para agenciador" width="20" height="20" border="0"></a></td>
-          <td align="center"> <a href="pesq_avaliacao_pendente.php?Id=<?=$row["LANCA_NUMRAR"]?>"> <?=$row["LANCA_NUMRAR"]?></a></td>
           <td align="left"><?=$row["LANCA_CATEGORIA"]?></td>
           <td align="left"><?=$row["DESCRICAO"]?></td>
+          <td align="center"><?=$row["LANCA_NUMRAR"]?></td>
           <td align="center"><?=$row["LANCA_NBLOCO_ANALISE"]?></td>
-          <td align="center"><?=trim($row["lanca_dataabertura"])?></td>
+          <td align="center"><?=trim($row["DATA"])?></td>
           <td align="center"><?=$row["DATA_AVALIACAO"] ?></td>
           <td align="center"><?=$row["ITEM_QTDE"]?></td>
           <td align="center"><?=$row["AVALI_SITUACAO"];?></td>
@@ -474,27 +467,28 @@ jQuery(document).ready(function($){
     var table = $('#tableAvaliacoesPendentes').DataTable({
         "columnDefs": [
           {
-            "targets": [2],
+            "targets": [1, 8],
             "visible": false
           },
           {
-            "targets": [3],
+            "targets": [2, 9],
             "searchable": false
           },
           {
-            "targets": [6],
+            "targets": [4, 5],
             "type": "customdatesort"
           }
         ]
     });
 
     $('#categoriaFilter').on( 'change', function () {
-      table.columns( 2 ).search( this.value ).draw();
+      table.columns( 1 ).search( this.value ).draw();
     });
     $('#statusFilter').on( 'change', function () {
-      table.columns( 9 ).search( this.value ).draw();
+      table.columns( 8 ).search( this.value ).draw();
     });
-    $("#dateFilterInicial,#dateFilterFinal").mask("99/99/9999");
+    $("#dateFilterInicial").mask("99/99/9999");
+    $("#dateFilterFinal").mask("99/99/9999");
 });
 function FilterSearch() {
 

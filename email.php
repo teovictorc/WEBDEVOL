@@ -1,5 +1,7 @@
 <? 	include('inc/conn.inc.php');
-
+	include("pdo/Db.class.php");
+	include("pdo/easyCRUD/LogAvaliacoes.class.php");
+	session_start();
 
 	function formatCurrencyPrint($Valor) {
 
@@ -17,7 +19,7 @@
 
 			$positionPot = strpos($Valor,".");
 
-			
+
 
 		$Valor.= substr("00",0,2 - ((strlen($Valor) - 1) - $positionPot));
 
@@ -31,7 +33,7 @@
 
 	}
 
-	
+
 
 	$sel_id_baca=$_GET['Id'];
 
@@ -51,7 +53,7 @@
 
     else
 
-	 { 
+	 {
 
 	  echo("Enviando...");
 
@@ -61,7 +63,7 @@
 
 	 }
 
-	 
+
 
 	$Sql = "SELECT L.*,I.*,F.NOME As FABRICA, date_format(i.item_data,'%d/%m/%Y') As DATA_NF ,date_format(L.lanca_dataabertura,'%d/%m/%Y') As DATA ,P.PESSOA,P.NOME,P.LOGRADOURO,P.BAIRRO,P.NM_MUNICIPIO,P.SG_UF FROM PESSOA P, RAR_LANCAMENTO L, PESSOA F, RAR_ITEM I ".
 
@@ -385,7 +387,7 @@ $Sql =	"SELECT AVALI_NUMRAR,AVALI_AREZ_DEFEI_IDO,AVALI_AREZ_DATA,AVALI_AREZ_ENCE
 
 		"WHERE AVALI_NUMRAR = '" .$_GET['Id']. "' AND LANCA_NUMRAR = AVALI_NUMRAR AND USUAR_IDO (+) = AVALI_STAR_USUAR_IDO AND AVALI_SITUACAO IS NOT NULL ";
 
-		
+
 
 $Sql =	"SELECT AVALI_NUMRAR, AVALI_AREZ_DEFEI_IDO, AVALI_AREZ_DATA, AVALI_AREZ_ENCERRADO,".
 
@@ -417,7 +419,7 @@ $Sql =	"SELECT AVALI_NUMRAR, AVALI_AREZ_DEFEI_IDO, AVALI_AREZ_DATA, AVALI_AREZ_E
 
 			$AVALI_AREZ_DETALHE = $RsI['AVALI_AREZ_DETALHE'];
 
-			
+
 
 			//$AVALI_STAR_DEFEI_IDO = $RsI['AVALI_STAR_DEFEI_IDO'];
 
@@ -429,7 +431,7 @@ $Sql =	"SELECT AVALI_NUMRAR, AVALI_AREZ_DEFEI_IDO, AVALI_AREZ_DATA, AVALI_AREZ_E
 
 			//$USUARIO = $RsI['USUAR_NOME'];
 
-			
+
 
 			$AVALI_SITUACAO = $RsI['AVALI_SITUACAO'];
 
@@ -447,7 +449,7 @@ $Html.= "<td colspan='4' class='style2'><table width='100%'  border='0'>".
 
          "<tr class='listagem_azul'>";
 
-if ($VAR == true) { 
+if ($VAR == true) {
 
     $Html.=  "<td colspan='4' class='style2'><strong>Avalia&ccedil;&atilde;o t&eacute;cnica WEBDevol </strong></td>".
 
@@ -463,11 +465,11 @@ if ($VAR == true) {
 
 		 $Stmt3 = mysql_query('SELECT * FROM RAR_DEFEITO ORDER BY DEFEI_DESCRICAO');
 
-		   while($RsD = mysql_fetch_assoc($Stmt3)) {  
+		   while($RsD = mysql_fetch_assoc($Stmt3)) {
 
 		  $Html.= "<option value='".$RsD['DEFEI_IDO']."'".(($AVALI_AREZ_DEFEI_IDO == $RsD['DEFEI_IDO']) ? ' Selected' : '').">".$RsD['DEFEI_DESCRICAO']."</option>";
 
-		 } 
+		 }
 
           $Html.= "</select></td>".
 
@@ -513,8 +515,6 @@ if ($VAR == true) {
 
          "</tr>".
 
-         
-
          "<tr class='listagem_azul'>".
 
          "  <td colspan='4' class='style2'><strong>Situa&ccedil;&atilde;o da reclama&ccedil;&atilde;o </strong></td>".
@@ -555,13 +555,13 @@ if ($VAR == true) {
 
 "</span></td>";
 
- }else{ 
+ }else{
 
 	$Html.=	"<Td width='8%'><div class='style2' align='center'><strong>Avalia&ccedil;&atilde;o n&atilde;o realizada !</strong></div></Td>";
 
- } 
+ }
 
-    
+
 
     $Html.=	"</tr>".
 
@@ -576,8 +576,8 @@ if ($VAR == true) {
        "</tr>".
 
   "</table>";
-  
-  
+
+
 require_once ("class.phpmailer.php");
 
 include("inc/mail.inc.php");
@@ -590,50 +590,50 @@ include("inc/mail.inc.php");
 		  $IDSX = str_replace("<br>","|",$_GET['IDS']);
 
 		  $IDS = explode("|",$IDSX);
-		  
+
 		  $men=$_GET['MENSAGEM'];
 
-		  for($x = 0; $x < count($IDS); $x++) 
-		  
-		 
-		 
+		  for($x = 0; $x < count($IDS); $x++)
+
+
+
 		  {
 
-		   
- 
-$mail = new PHPMailer(); // 
- 
+
+
+$mail = new PHPMailer(); //
+
 // Define o método de envio
 $mail->Mailer     = "smtp";
 
 // Define que a mensagem poderá ter formatação HTML
 $mail->IsHTML(true); //
- 
+
 // Define que a codificação do conteúdo da mensagem será utf-8
 $mail->CharSet    = "iso-8859-1";
- 
+
 // Define que os emails enviadas utilizarão SMTP Seguro tls
 $mail->SMTPSecure = "auto";
- 
+
 // Define que o Host que enviará a mensagem é o Gmail
 $mail->Host       = "smtp.andarella.com.br";
- 
+
 //Define a porta utilizada pelo Gmail para o envio autenticado
-$mail->Port       = "587";                   
- 
+$mail->Port       = "587";
+
 // Deine que a mensagem utiliza método de envio autenticado
 $mail->SMTPAuth   = "true";
- 
+
 // Define o usuário do gmail autenticado responsável pelo envio
 $mail->Username   = "tiago.silva@andarella.com.br";
- 
+
 // Define a senha deste usuário citado acima
 $mail->Password   = "ts1234a2014";
- 
+
 // Defina o email e o nome que aparecerá como remetente no cabeçalho
 $mail->From       = "tiago.silva@andarella.com.br";
 $mail->FromName   = "Andarella-Analise de Produto";
- 
+
 // Define o destinatário que receberá a mensagem
 
 $mail->AddAddress($IDS[$x]);
@@ -644,7 +644,7 @@ mensagem, quando o destinatário responder
 */
 $mail->AddReplyTo("tiago.silva@andarella.com.br", $mail->FromName);
 /*
-Define o email no email anexo 
+Define o email no email anexo
 */
 
 $mail->AddAttachment($PathImagens. $Rs["ITEM_FOTOPROD"], "IMAGEM_PRO.jpeg" );
@@ -652,31 +652,31 @@ $mail->AddAttachment($PathImagens. $Rs["ITEM_FOTOPROD"], "IMAGEM_PRO.jpeg" );
 $mail->AddAttachment($PathImagens. $Rs["ITEM_FOTOSOLA"], "IMAGEM_SOLA.jpeg" );
 
 $mail->AddAttachment($PathImagens. $Rs["ITEM_FOTODEFEITO"],"IMAGEM_DEFEITO.jpeg" );
- 
+
 // Assunto da mensagem
 //$mail->Subject    = "ENVIADO PELO PHP: Teste de e-mail";
 
 $mail->Subject=("RARWEB - Encaminhamento da RAR  " .$Rs["LANCA_NUMRAR"]);
- 
+
 // Toda a estrutura HTML e corpo da mensagem
 $mail->Body       = $Html;
- 
+
 // Controle de erro ou sucesso no envio
 $mail->Send();
 		  }
-		  
+
 	  echo "<script language='javascript' type='text/javascript'>
 
 	            alert('E-mail enviado com sucesso !');
 
 		        window.history.go(-1);
 
-               </script>";	  
+               </script>";
   }
- 
 
 
-else 
+
+else
 
 {
 $IDS = explode("|",$_POST['ID']);
@@ -686,41 +686,41 @@ $IDS = explode("|",$_POST['ID']);
 		  $lln=$Rs["LANCA_NUMRAR"];
 
 		  for($x = 0; $x < count($IDS); $x++)
-		  
+
 		  {
-			$mail = new PHPMailer(); // 
- 
+			$mail = new PHPMailer(); //
+
 // Define o método de envio
 $mail->Mailer     = "smtp";
- 
+
 // Define que a mensagem poderá ter formatação HTML
 $mail->IsHTML(true); //
- 
+
 // Define que a codificação do conteúdo da mensagem será utf-8
 $mail->CharSet    = "iso-8859-1";
- 
+
 // Define que os emails enviadas utilizarão SMTP Seguro tls
 $mail->SMTPSecure = "auto";
- 
+
 // Define que o Host que enviará a mensagem é o Gmail
 $mail->Host       = "smtp.andarella.com.br";
- 
+
 //Define a porta utilizada pelo Gmail para o envio autenticado
-$mail->Port       = "587";                   
- 
+$mail->Port       = "587";
+
 // Deine que a mensagem utiliza método de envio autenticado
 $mail->SMTPAuth   = "true";
- 
+
 // Define o usuário do gmail autenticado responsável pelo envio
 $mail->Username   = "tiago.silva@andarella.com.br";
- 
+
 // Define a senha deste usuário citado acima
 $mail->Password   = "ts1234a2014";
- 
+
 // Defina o email e o nome que aparecerá como remetente no cabeçalho
 $mail->From       = "tiago.silva@andarella.com.br";
 $mail->FromName   = "Andarella-Analise de Produto  ";
- 
+
 // Define o destinatário que receberá a mensagem
 
 $mail->AddAddress($IDS[$x]);
@@ -734,7 +734,7 @@ $mail->AddReplyTo("tiago.silva@andarella.com.br", $mail->FromName);
 $dta_log=date("Y-m-d H:i:s", time());
 
 /*
-Define o email no email anexo 
+Define o email no email anexo
 */
 
 $mail->AddAttachment($PathImagens. $Rs["ITEM_FOTOPROD"], "IMAGEM_PRO.jpeg" );
@@ -742,19 +742,28 @@ $mail->AddAttachment($PathImagens. $Rs["ITEM_FOTOPROD"], "IMAGEM_PRO.jpeg" );
 $mail->AddAttachment($PathImagens. $Rs["ITEM_FOTOSOLA"], "IMAGEM_SOLA.jpeg" );
 
 $mail->AddAttachment($PathImagens. $Rs["ITEM_FOTODEFEITO"],"IMAGEM_DEFEITO.jpeg" );
- 
+
 // Assunto da mensagem
 //$mail->Subject    = "ENVIADO PELO PHP: Teste de e-mail";
 
 $mail->Subject=("RARWEB - Encaminhamento da RAR  " .$Rs["LANCA_NUMRAR"]);
- 
+
 // Toda a estrutura HTML e corpo da mensagem
 $mail->Body  = $Html;
 
-$mail->Send(); 
+$mail->Send();
+	$log = new LogAvaliacoes();
+	//$log->_writeAccess($_SESSION['sId'], $_SESSION['NUM_RAR']);
+	$log->created = date('Y-m-d H:i:s');
+	$log->usuario_id = $_SESSION['sId'];
+	$log->num_rar = $Rs["LANCA_NUMRAR"];
+	$log->token = session_id();
+	$log->texto = "<i>Usuário <strong>{$Rs['NOME']}</strong>strong> foi notificado da avaliação por <strong>{$USUARIO}</strong></i>";
+	$log->type = 2;
+	$log->Create();
 
-	echo("Email = " .$IDS[$x]."<br>"); 
-	
+	echo("Email = " .$IDS[$x]."<br>");
+
 	$emails = str_replace("|","<br>",$_POST['ID']);
 
 		  $Comando = "INSERT INTO rar_logemail (LOG_CONT_IDO,LOG_MENSAGEM,LOG_LANCA_NUMRAR,LOG_USUAR_IDO,LOG_DATA) VALUES ('$emails','$men','$lln','$user','$dta_log')";
@@ -763,8 +772,8 @@ $mail->Send();
 
 
 		  }
-			  
-		
+
+
 		  $emailx = str_replace("<br>",", ",$emails);
 
 		  echo "<script language='javascript' type='text/javascript'>
@@ -774,13 +783,13 @@ $mail->Send();
 	            self.close();
 
                </script>";
-			   	
+
 }
-		  
-	
 
 
-		   
-		   
-  
+
+
+
+
+
  ?>
